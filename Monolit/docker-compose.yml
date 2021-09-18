@@ -1,0 +1,41 @@
+version: "3.7"
+services:
+    #DB
+    dee-flat-db:
+        container_name: dee-flat-db
+        restart: unless-stopped
+        environment:
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=adminadmin
+            - POSTGRES_DB=deeflatdb
+        image: "postgres"
+        hostname: dee-flat-db
+        ports:
+            - "5433:5432"
+        volumes:
+            - database-data:/var/lib/postgresql/data/
+    #СУБД для проверки подключений
+    pgadmin:
+        image: dpage/pgadmin4
+        environment:
+            - PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org
+            - PGADMIN_DEFAULT_PASSWORD=admin
+        ports:
+            - "5051:80"
+        volumes:
+            - pgadmin:/root/.pgadmin
+        restart: unless-stopped
+    #API
+    dee-flat-api:
+        container_name: dee-flat-api
+        depends_on:
+            - dee-flat-db
+        environment:
+            - "DB_ConectionString=Host=dee-flat-db;port=5432;Database=deeflatdb;Username=admin;Password=adminadmin"
+        image: "kapecart/dee-flat:0.1"
+        ports:
+            - "5000:5000"
+
+volumes:
+    pgadmin:
+    database-data:
