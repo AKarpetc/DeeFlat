@@ -38,8 +38,6 @@ namespace DeeFlat.IS4.WebHost
             try
             {
                 var seed = args.Contains("/seed");
-
-                //seed = true;
                 if (seed)
                 {
                     args = args.Except(new[] { "/seed" }).ToArray();

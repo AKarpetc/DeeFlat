@@ -47,6 +47,7 @@ namespace DeeFlat.IS4.WebHost
                     AllowedGrantTypes = GrantTypes.Code,
 
                     RedirectUris = { "https://localhost:44321/signin-oidc" },
+                    FrontChannelLogoutUri = "https://localhost:44321/signout-oidc",
                     PostLogoutRedirectUris = { "https://localhost:44321/signout-callback-oidc" },
 
                     AllowOfflineAccess = true,
