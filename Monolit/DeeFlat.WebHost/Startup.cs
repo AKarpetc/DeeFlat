@@ -1,6 +1,7 @@
 using DeeFlat.DataAccess.Data;
 using DeeFlat.Services.Courses.GetAllCoursesQuery;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -32,12 +33,55 @@ namespace DeeFlat.WebHost
             conectionString = confConectionString;
 #endif
             Console.WriteLine(nameof(conectionString) + " " + conectionString);//Ïðîâåðêà ÑonectionString
-          
+
             services.AddScoped<IDbInitializer, EfDbInitializer>();
             services.AddDbContext<DeeFlatDBContext>(option =>
             {
                 option.UseNpgsql(conectionString);
                 option.UseLazyLoadingProxies();
+            });
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "Cookies";
+                options.DefaultChallengeScheme = "oidc";
+            })
+            .AddCookie("cookie", options =>
+            {
+                options.Cookie.Name = "mvcclient";
+
+                options.ExpireTimeSpan = TimeSpan.FromHours(8);
+                options.SlidingExpiration = false;
+
+                // could be used to automatically trigger re-authentication (if you want to do that at the pipeline level)
+                //options.Events.OnValidatePrincipal = async e =>
+                //{
+                //    var currentToken = await e.HttpContext.GetAccessTokenAsync();
+
+                //    if (string.IsNullOrWhiteSpace(currentToken))
+                //    {
+                //        e.RejectPrincipal();
+                //    }
+                //};
+
+            })
+            .AddOpenIdConnect("oidc", options =>
+            {
+                options.Authority = "https://localhost:5001";
+                options.ClientId = "mvc";
+                options.ClientSecret = "secret";
+                options.ResponseType = "code";
+
+                options.SaveTokens = true;
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ApiScope", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("scope", "scope1");
+                });
             });
 
             services.AddControllers();

@@ -2,6 +2,7 @@
 using DeeFlat.Services.Courses.AddCourseCommand;
 using DeeFlat.Services.Courses.GetAllCoursesQuery;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
@@ -22,6 +23,12 @@ namespace DeeFlat.WebHost.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Get()
+        {
+            return Ok(await _mediator.Send(new GetAllCoursesQuery()));
+        }
+
+        [Authorize, HttpGet("GetAuthorized")]
+        public async Task<IActionResult> GetAuthorized()
         {
             return Ok(await _mediator.Send(new GetAllCoursesQuery()));
         }
