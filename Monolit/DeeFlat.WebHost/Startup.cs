@@ -8,8 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.OpenApi.Models;
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http;
 
 namespace DeeFlat.WebHost
 {
@@ -41,47 +45,32 @@ namespace DeeFlat.WebHost
                 option.UseLazyLoadingProxies();
             });
 
+            IdentityModelEventSource.ShowPII = true;
+
+            var httpClientHandler = new HttpClientHandler();
+            httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, error) => true;
+
+            JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "Cookies";
                 options.DefaultChallengeScheme = "oidc";
             })
-            .AddCookie("cookie", options =>
-            {
-                options.Cookie.Name = "mvcclient";
-
-                options.ExpireTimeSpan = TimeSpan.FromHours(8);
-                options.SlidingExpiration = false;
-
-                // could be used to automatically trigger re-authentication (if you want to do that at the pipeline level)
-                //options.Events.OnValidatePrincipal = async e =>
-                //{
-                //    var currentToken = await e.HttpContext.GetAccessTokenAsync();
-
-                //    if (string.IsNullOrWhiteSpace(currentToken))
-                //    {
-                //        e.RejectPrincipal();
-                //    }
-                //};
-
-            })
+            .AddCookie("Cookies")
             .AddOpenIdConnect("oidc", options =>
             {
                 options.Authority = "https://localhost:5001";
-                options.ClientId = "mvc";
-                options.ClientSecret = "secret";
-                options.ResponseType = "code";
+                options.ClientId = "interactive";
+                options.ClientSecret = "49C1A7E1-0C79-4A89-A3D6-A37998FB86B0";
+                options.ResponseType = OpenIdConnectResponseType.Code;
+                //options.UsePkce = true;
+
+                options.Scope.Add("scope1");
+                options.Scope.Add("scope2");
 
                 options.SaveTokens = true;
-            });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ApiScope", policy =>
-                {
-                    policy.RequireAuthenticatedUser();
-                    policy.RequireClaim("scope", "scope1");
-                });
             });
 
             services.AddControllers();
@@ -107,11 +96,13 @@ namespace DeeFlat.WebHost
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute()
+                         .RequireAuthorization();
             });
 
             dbInitializer.InitializeDb();

@@ -27,7 +27,8 @@ namespace DeeFlat.WebHost.Controllers
             return Ok(await _mediator.Send(new GetAllCoursesQuery()));
         }
 
-        [Authorize, HttpGet("GetAuthorized")]
+        [Authorize]
+        [HttpGet("GetAuthorized")]
         public async Task<IActionResult> GetAuthorized()
         {
             return Ok(await _mediator.Send(new GetAllCoursesQuery()));
