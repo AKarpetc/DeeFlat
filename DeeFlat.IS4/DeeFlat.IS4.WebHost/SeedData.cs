@@ -6,12 +6,12 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using IdentityModel;
-using DeeFlat.IS4.WebHost.Data;
-using DeeFlat.IS4.WebHost.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using DeeFlat.IS4.Core.Domain;
+using DeeFlat.IS4.DataAccess.Data;
 
 namespace DeeFlat.IS4.WebHost
 {

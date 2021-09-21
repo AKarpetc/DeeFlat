@@ -3,8 +3,6 @@
 
 
 using IdentityServer4;
-using DeeFlat.IS4.WebHost.Data;
-using DeeFlat.IS4.WebHost.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -12,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using DeeFlat.IS4.Core.Domain;
+using DeeFlat.IS4.DataAccess.Data;
 
 namespace DeeFlat.IS4.WebHost
 {

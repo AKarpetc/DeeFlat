@@ -1,5 +1,6 @@
 using DeeFlat.DataAccess.Data;
 using DeeFlat.Services.Courses.GetAllCoursesQuery;
+using DeeFlat.WebHost.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -52,6 +53,10 @@ namespace DeeFlat.WebHost
 
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
+            var confOpenId = Configuration.GetSection("OpenIdConnectSettings").Get<OpenIdConnectSettings>();
+
+            //  var settings = services.Configure<OpenIdConnectSettings>(options => Configuration.GetSection("OpenIdConnectSettings").Bind(options));
+
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "Cookies";
@@ -60,15 +65,15 @@ namespace DeeFlat.WebHost
             .AddCookie("Cookies")
             .AddOpenIdConnect("oidc", options =>
             {
-                options.Authority = "https://localhost:5001";
-                options.ClientId = "interactive";
-                options.ClientSecret = "49C1A7E1-0C79-4A89-A3D6-A37998FB86B0";
-                options.ResponseType = OpenIdConnectResponseType.Code;
-                //options.UsePkce = true;
+                options.Authority = confOpenId.Authority;
+                options.ClientId = confOpenId.ClientId;
+                options.ClientSecret = confOpenId.ClientSecret;
+                options.ResponseType = confOpenId.ResponseType;
 
-                options.Scope.Add("scope1");
-                options.Scope.Add("scope2");
-
+                foreach (var scope in confOpenId.Scopes)
+                {
+                    options.Scope.Add(scope);
+                }
                 options.SaveTokens = true;
 
             });
