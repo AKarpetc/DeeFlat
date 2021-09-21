@@ -37,7 +37,7 @@ namespace DeeFlat.WebHost
 #if DEBUG
             conectionString = confConectionString;
 #endif
-            Console.WriteLine(nameof(conectionString) + " " + conectionString);//Проверка СonectionString
+            Console.WriteLine("Строка подключение переданная в параметрах: " + nameof(conectionString) + " " + conectionString);//Проверка СonectionString
 
             services.AddScoped<IDbInitializer, EfDbInitializer>();
             services.AddDbContext<DeeFlatDBContext>(option =>
@@ -55,8 +55,6 @@ namespace DeeFlat.WebHost
 
             var confOpenId = Configuration.GetSection("OpenIdConnectSettings").Get<OpenIdConnectSettings>();
 
-            //  var settings = services.Configure<OpenIdConnectSettings>(options => Configuration.GetSection("OpenIdConnectSettings").Bind(options));
-
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "Cookies";
@@ -69,6 +67,7 @@ namespace DeeFlat.WebHost
                 options.ClientId = confOpenId.ClientId;
                 options.ClientSecret = confOpenId.ClientSecret;
                 options.ResponseType = confOpenId.ResponseType;
+                options.RequireHttpsMetadata = false;
 
                 foreach (var scope in confOpenId.Scopes)
                 {

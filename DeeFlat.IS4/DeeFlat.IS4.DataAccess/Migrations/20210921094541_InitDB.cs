@@ -26,6 +26,10 @@ namespace DeeFlat.IS4.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    Surname = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    Age = table.Column<int>(type: "INTEGER", nullable: false),
+                    AboutMe = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),

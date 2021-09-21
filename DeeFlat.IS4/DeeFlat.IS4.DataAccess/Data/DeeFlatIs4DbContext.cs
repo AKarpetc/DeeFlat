@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DeeFlat.IS4.DataAccess.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class DeeFlatIs4DbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public DeeFlatIs4DbContext(DbContextOptions<DeeFlatIs4DbContext> options)
             : base(options)
         {
         }

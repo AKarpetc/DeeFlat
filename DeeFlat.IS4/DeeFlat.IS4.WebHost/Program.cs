@@ -38,14 +38,15 @@ namespace DeeFlat.IS4.WebHost
             try
             {
                 var seed = args.Contains("/seed");
-                if (true)
+                seed = true;
+                if (seed)
                 {
                     args = args.Except(new[] { "/seed" }).ToArray();
                 }
 
                 var host = CreateHostBuilder(args).Build();
 
-                if (true)
+                if (seed)
                 {
                     Log.Information("Seeding database...");
                     var config = host.Services.GetRequiredService<IConfiguration>();

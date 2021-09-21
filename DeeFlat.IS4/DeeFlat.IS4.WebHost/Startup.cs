@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DeeFlat.IS4.Core.Domain;
 using DeeFlat.IS4.DataAccess.Data;
+using Microsoft.OpenApi.Models;
 
 namespace DeeFlat.IS4.WebHost
 {
@@ -30,11 +31,11 @@ namespace DeeFlat.IS4.WebHost
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<DeeFlatIs4DbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<DeeFlatIs4DbContext>()
                 .AddDefaultTokenProviders();
 
             var builder = services.AddIdentityServer(options =>
@@ -66,6 +67,11 @@ namespace DeeFlat.IS4.WebHost
                     options.ClientId = "copy client ID from Google here";
                     options.ClientSecret = "copy client secret from Google here";
                 });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DeeFlat.IS4.WebHost", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app)
@@ -74,6 +80,9 @@ namespace DeeFlat.IS4.WebHost
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DeeFlat.WebHost v1"));
             }
 
             app.UseStaticFiles();
@@ -85,6 +94,7 @@ namespace DeeFlat.IS4.WebHost
             {
                 endpoints.MapDefaultControllerRoute();
             });
+
         }
     }
 }

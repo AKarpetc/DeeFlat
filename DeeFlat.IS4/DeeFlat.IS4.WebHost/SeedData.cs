@@ -21,19 +21,24 @@ namespace DeeFlat.IS4.WebHost
         {
             var services = new ServiceCollection();
             services.AddLogging();
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<DeeFlatIs4DbContext>(options =>
                options.UseSqlite(connectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<DeeFlatIs4DbContext>()
                 .AddDefaultTokenProviders();
 
             using (var serviceProvider = services.BuildServiceProvider())
             {
                 using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
                 {
-                    var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-                    context.Database.Migrate();
+                    var context = scope.ServiceProvider.GetService<DeeFlatIs4DbContext>();
+
+
+                    context.Database.EnsureDeleted();
+                    context.Database.EnsureCreated();
+
+                    //    context.Database.Migrate();
 
                     var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                     var alice = userMgr.FindByNameAsync("alice").Result;
@@ -44,6 +49,8 @@ namespace DeeFlat.IS4.WebHost
                             UserName = "alice",
                             Email = "AliceSmith@email.com",
                             EmailConfirmed = true,
+                            Name = "Алис",
+                            Surname = "Баранкина"
                         };
                         var result = userMgr.CreateAsync(alice, "Pass123$").Result;
                         if (!result.Succeeded)
@@ -75,7 +82,9 @@ namespace DeeFlat.IS4.WebHost
                         {
                             UserName = "bob",
                             Email = "BobSmith@email.com",
-                            EmailConfirmed = true
+                            EmailConfirmed = true,
+                            Name = "Боб",
+                            Surname = "Марли"
                         };
                         var result = userMgr.CreateAsync(bob, "Pass123$").Result;
                         if (!result.Succeeded)
