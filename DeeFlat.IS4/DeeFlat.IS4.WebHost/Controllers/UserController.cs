@@ -26,7 +26,7 @@ namespace DeeFlat.IS4.WebHost.Controllers
                 x.Name,
                 x.Surname,
                 x.Email,
-                x.Age,
+                x.BornDate,
                 x.AboutMe,
                 x.UserName
 

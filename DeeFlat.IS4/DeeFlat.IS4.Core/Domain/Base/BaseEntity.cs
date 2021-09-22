@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DeeFlat.IS4.Core.Domain
 {
-    public class Client
+    public class BaseEntity
     {
-      
+        public Guid Id { get; set; }
     }
 }
