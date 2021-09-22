@@ -63,6 +63,10 @@ namespace DeeFlat.WebHost
             .AddCookie("Cookies")
             .AddOpenIdConnect("oidc", options =>
             {
+                var httpClientHandler = new HttpClientHandler();
+                httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, error) => true;
+                options.BackchannelHttpHandler = httpClientHandler;
+
                 options.Authority = confOpenId.Authority;
                 options.ClientId = confOpenId.ClientId;
                 options.ClientSecret = confOpenId.ClientSecret;
