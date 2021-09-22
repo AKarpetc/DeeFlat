@@ -37,7 +37,7 @@ namespace DeeFlat.WebHost
 #if DEBUG
             conectionString = confConectionString;
 #endif
-            Console.WriteLine("Строка подключение переданная в параметрах: " + nameof(conectionString) + " " + conectionString);//Проверка СonectionString
+            Console.WriteLine(nameof(conectionString) + " " + conectionString);//Проверка СonectionString
 
             services.AddScoped<IDbInitializer, EfDbInitializer>();
             services.AddDbContext<DeeFlatDBContext>(option =>

@@ -3,6 +3,7 @@
 
 
 using IdentityServer4.Models;
+using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 
 namespace DeeFlat.IS4.WebHost
@@ -45,10 +46,10 @@ namespace DeeFlat.IS4.WebHost
                     ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
 
                     AllowedGrantTypes = GrantTypes.Code,
-
-                    RedirectUris = { "https://localhost:44321/signin-oidc" },
-                    FrontChannelLogoutUri = "https://localhost:44321/signout-oidc",
-                    PostLogoutRedirectUris = { "https://localhost:44321/signout-callback-oidc" },
+                    
+                    RedirectUris = { "https://localhost:5002/signin-oidc" },
+                    FrontChannelLogoutUri = "https://localhost:5002/signout-oidc",
+                    PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
 
                     AllowOfflineAccess = true,
                     AllowedScopes = { "openid", "profile", "scope2", "scope1" }

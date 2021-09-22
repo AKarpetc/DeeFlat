@@ -13,17 +13,18 @@ using Microsoft.Extensions.Hosting;
 using DeeFlat.IS4.Core.Domain;
 using DeeFlat.IS4.DataAccess.Data;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace DeeFlat.IS4.WebHost
 {
     public class Startup
     {
-        public IWebHostEnvironment Environment { get; }
+        public IWebHostEnvironment _environment { get; }
         public IConfiguration Configuration { get; }
 
         public Startup(IWebHostEnvironment environment, IConfiguration configuration)
         {
-            Environment = environment;
+            this._environment = environment;
             Configuration = configuration;
         }
 
@@ -31,8 +32,18 @@ namespace DeeFlat.IS4.WebHost
         {
             services.AddControllersWithViews();
 
+            string confConectionString = Configuration.GetConnectionString("DefaultConnectionStrings");
+            var envConectionString = Environment.GetEnvironmentVariable("DB_ConectionString");
+            var conectionString = envConectionString;
+
+#if DEBUG
+            conectionString = confConectionString;
+#endif
+            Console.WriteLine(nameof(conectionString) + " " + conectionString);//Проверка СonectionString
+
+
             services.AddDbContext<DeeFlatIs4DbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(conectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<DeeFlatIs4DbContext>()
@@ -60,7 +71,7 @@ namespace DeeFlat.IS4.WebHost
                 .AddGoogle(options =>
                 {
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-                    
+
                     // register your IdentityServer with Google at https://console.developers.google.com
                     // enable the Google+ API
                     // set the redirect URI to https://localhost:5001/signin-google
@@ -74,9 +85,9 @@ namespace DeeFlat.IS4.WebHost
             });
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, DeeFlatIs4DbContext db)
         {
-            if (Environment.IsDevelopment())
+            if (_environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();

@@ -22,7 +22,7 @@ namespace DeeFlat.IS4.WebHost
             var services = new ServiceCollection();
             services.AddLogging();
             services.AddDbContext<DeeFlatIs4DbContext>(options =>
-               options.UseSqlite(connectionString));
+               options.UseNpgsql(connectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<DeeFlatIs4DbContext>()
@@ -34,11 +34,7 @@ namespace DeeFlat.IS4.WebHost
                 {
                     var context = scope.ServiceProvider.GetService<DeeFlatIs4DbContext>();
 
-
-                    context.Database.EnsureDeleted();
-                    context.Database.EnsureCreated();
-
-                    //    context.Database.Migrate();
+                    context.Database.Migrate();
 
                     var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                     var alice = userMgr.FindByNameAsync("alice").Result;

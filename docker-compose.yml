@@ -42,7 +42,7 @@ services:
             - "DB_ConectionString=Host=dee-flat-db;port=5432;Database=deeflatdb;Username=admin;Password=adminadmin"
         volumes:
         - C:/.aspnet/https:/https:ro
-     #authorization
+     #identity-server-4
     deeflat-is-4:
         image: deeflat-is-4:0.1
         container_name: deeflat-is-4
@@ -56,7 +56,22 @@ services:
         - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/deeflat.pfx
         volumes:
         - C:/.aspnet/https:/https:ro
+    #identity-server-4-db
+    deeflat-is4-db:
+        container_name: deeflat-is4-db
+        restart: unless-stopped
+        environment:
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=adminadmin
+            - POSTGRES_DB=deeflat-is4-db
+        image: "postgres"
+        hostname: deeflat-is4-db
+        ports:
+            - "5434:5432"
+        volumes:
+            - database-is4-data:/var/lib/postgresql/data/
 
 volumes:
     pgadmin:
     database-data:
+    database-is4-data:
