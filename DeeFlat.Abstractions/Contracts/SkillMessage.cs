@@ -5,15 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeeFlat.Dictionaries.Core.Domain
+namespace DeeFlat.Abstractions.Contracts
 {
-    public class Skill : BaseEntity
+    public interface ISkillMessage
     {
-        public Skill(string name)
-        {
-            Name = name;
-        }
-
+        public Guid Id { get; set; }
         public string Name { get; set; }
     }
 }

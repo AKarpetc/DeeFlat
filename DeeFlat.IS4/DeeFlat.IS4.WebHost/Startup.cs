@@ -18,6 +18,8 @@ using DeeFlat.Abstractions.Repositories;
 using DeeFlat.IS4.DataAccess;
 using MediatR;
 using DeeFlat.IS4.Services.Users.GetUsers;
+using MassTransit;
+using DeeFlat.IS4.Services.Consumers;
 
 namespace DeeFlat.IS4.WebHost
 {
@@ -81,6 +83,30 @@ namespace DeeFlat.IS4.WebHost
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
                 .AddAspNetIdentity<ApplicationUser>();
+
+
+            var massTransitSection = Configuration.GetSection("MassTransit");
+            var url = massTransitSection.GetValue<string>("Url");
+            var host = massTransitSection.GetValue<string>("Host");
+            var userName = massTransitSection.GetValue<string>("UserName");
+            var password = massTransitSection.GetValue<string>("Password");
+
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<SkillMessageIS4Consumer>();
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host($"rabbitmq://{url}/{host}", configurator =>
+                    {
+                        configurator.Username(userName);
+                        configurator.Password(password);
+                    });
+                    cfg.ConfigureEndpoints(context);
+                });
+            });
+
+            services.AddMassTransitHostedService();
+
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();

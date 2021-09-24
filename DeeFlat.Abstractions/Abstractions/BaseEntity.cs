@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace DeeFlat.Abstractions.Abstractions
 {
-    public class BaseEntity: IBaseEntity
+    public class BaseEntity : IBaseEntity
     {
+        public BaseEntity()
+        {
+            Created = DateTime.Now;
+        }
+
         public Guid Id { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime Created { get; set; }
     }
 }

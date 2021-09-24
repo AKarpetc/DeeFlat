@@ -5,15 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeeFlat.Dictionaries.Core.Domain
+namespace DeeFlat.Dictionaries.Services.Skills.GetSkills
 {
-    public class Skill : BaseEntity
+    public class SkillDTO : BaseDTO
     {
-        public Skill(string name)
-        {
-            Name = name;
-        }
-
         public string Name { get; set; }
     }
 }
