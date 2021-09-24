@@ -29,18 +29,13 @@ namespace DeeFlat.IS4.Services.Users.AddUserCommand
 
         public string City { get; set; }
 
-        public Skil[] Skils { get; set; }
+        public Skil[] Skills { get; set; }
 
         public string Email { get; set; }
 
         public string Password { get; set; }
-    }
 
-    public class Skil
-    {
-        public Guid Id { get; set; }
-
-        public string Name { get; set; }
+        public string PhoneNumber { get; set; }
     }
 
     public class AddUserCommandProfile : Profile
@@ -48,7 +43,7 @@ namespace DeeFlat.IS4.Services.Users.AddUserCommand
         public AddUserCommandProfile()
         {
             CreateMap<AddUserCommand, ApplicationUser>()
-                .ForMember(dest => dest.Skills, sour => sour.MapFrom(x => x.Skils.Select(x => new UserSkill
+                .ForMember(dest => dest.Skills, sour => sour.MapFrom(x => x.Skills.Select(x => new UserSkill
                 {
                     SkilId = x.Id,
                     SkilName = x.Name

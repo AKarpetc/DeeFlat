@@ -20,6 +20,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
 
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.10" />
+
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.7" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
 
@@ -38,9 +40,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DeeFlat.IS4.Services\DeeFlat.IS4.Services.csproj" />
     <ProjectReference Include="..\DeeFlat.IS4.Core\DeeFlat.IS4.Core.csproj" />
     <ProjectReference Include="..\DeeFlat.IS4.DataAccess\DeeFlat.IS4.DataAccess.csproj" />
+    <ProjectReference Include="..\DeeFlat.IS4.Services\DeeFlat.IS4.Services.csproj" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

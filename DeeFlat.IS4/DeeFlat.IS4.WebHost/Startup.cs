@@ -16,8 +16,8 @@ using Microsoft.OpenApi.Models;
 using System;
 using DeeFlat.Abstractions.Repositories;
 using DeeFlat.IS4.DataAccess;
-using DeeFlat.IS4.Services.Users.GetUserQuery;
 using MediatR;
+using DeeFlat.IS4.Services.Users.GetUsers;
 
 namespace DeeFlat.IS4.WebHost
 {
@@ -47,7 +47,10 @@ namespace DeeFlat.IS4.WebHost
 
 
             services.AddDbContext<DeeFlatIs4DbContext>(options =>
-                options.UseNpgsql(conectionString));
+            {
+                options.UseLazyLoadingProxies();
+                options.UseNpgsql(conectionString);
+            });
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<DeeFlatIs4DbContext>()

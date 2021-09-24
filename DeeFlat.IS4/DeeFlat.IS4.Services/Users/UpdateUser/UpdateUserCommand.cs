@@ -1,4 +1,7 @@
-﻿using DeeFlat.Abstractions.CQRS;
+﻿using AutoMapper;
+using DeeFlat.Abstractions.Abstractions;
+using DeeFlat.Abstractions.CQRS;
+using DeeFlat.IS4.Core.Domain;
 using DeeFlat.IS4.Services.Users.AddUserCommand;
 using System;
 using System.Collections.Generic;
@@ -9,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace DeeFlat.IS4.Services.Users
 {
-    public class UpdateUserCommand : ICommand
+    public class UpdateUserCommand : BaseEntity, ICommand
     {
         [StringLength(50)]
         public string Name { get; set; }
@@ -28,8 +31,23 @@ namespace DeeFlat.IS4.Services.Users
 
         public string City { get; set; }
 
-        public Skil[] Skils { get; set; }
+        public Skil[] Skills { get; set; }
 
         public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+
+    }
+
+    public class UpdateUserCommandProfile : Profile
+    {
+        public UpdateUserCommandProfile()
+        {
+            CreateMap<UpdateUserCommand, ApplicationUser>()
+                 .ForMember(dest => dest.Skills, sour => sour.MapFrom(x => x.Skills.Select(x => new UserSkill
+                 {
+                     SkilId = x.Id,
+                     SkilName = x.Name
+                 })));
+        }
     }
 }

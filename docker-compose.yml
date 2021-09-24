@@ -70,7 +70,22 @@ services:
             - "5434:5432"
         volumes:
             - database-is4-data:/var/lib/postgresql/data/
-    promocode-factory-rabbitmq-bus: # login guest:guest
+    #dictionary-db
+    deeflat-dictionary-db:
+        container_name: deeflat-dictionary-db
+        restart: unless-stopped
+        environment:
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=adminadmin
+            - POSTGRES_DB=deeflat-dictionary-db
+        image: "postgres"
+        hostname: deeflat-dictionary-db
+        ports:
+            - "5435:5432"
+        volumes:
+            - deeflat-dictionary-data:/var/lib/postgresql/data/
+    # login guest:guest
+    deeflat-rabbitmq-bus:
         image: rabbitmq:3-management
         hostname: "rabbitmq"
         labels:
@@ -88,3 +103,4 @@ volumes:
     pgadmin:
     database-data:
     database-is4-data:
+    deeflat-dictionary-data:

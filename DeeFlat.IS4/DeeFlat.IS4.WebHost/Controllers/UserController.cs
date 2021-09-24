@@ -1,6 +1,7 @@
 ﻿using DeeFlat.IS4.DataAccess.Data;
+using DeeFlat.IS4.Services.Users;
 using DeeFlat.IS4.Services.Users.AddUserCommand;
-using DeeFlat.IS4.Services.Users.GetUserQuery;
+using DeeFlat.IS4.Services.Users.GetUsers;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,13 @@ namespace DeeFlat.IS4.WebHost.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Post(AddUserCommand user)
+        {
+            var result = await _mediator.Send(user);
+            return Ok(result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put(UpdateUserCommand user)
         {
             var result = await _mediator.Send(user);
             return Ok(result);

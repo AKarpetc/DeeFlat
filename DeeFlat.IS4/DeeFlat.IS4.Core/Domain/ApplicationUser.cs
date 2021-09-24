@@ -29,7 +29,7 @@ namespace DeeFlat.IS4.Core.Domain
 
         public string City { get; set; }
 
-        public virtual ICollection<UserSkill> Skills { get; set; }
+        public virtual IList<UserSkill> Skills { get; set; }
 
     }
 }

@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DeeFlat.IS4.Services.Users.GetUserQuery
+namespace DeeFlat.IS4.Services.Users.GetUsers
 {
     public class GetAllUsersQueryHandler : BaseQueryHandlerAsync<GetAllUsersQuery, IEnumerable<UserDTO>>
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeeFlat.IS4.Services.Users.GetUserQuery
+namespace DeeFlat.IS4.Services.Users.GetUsers
 {
     public class GetAllUsersQuery : IQuery<IEnumerable<UserDTO>>
     {
