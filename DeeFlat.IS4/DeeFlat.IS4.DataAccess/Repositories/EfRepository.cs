@@ -1,5 +1,6 @@
 ﻿using DeeFlat.Abstractions.Abstractions;
 using DeeFlat.Abstractions.Repositories;
+using DeeFlat.IS4.Core.Domain;
 using DeeFlat.IS4.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace DeeFlat.IS4.DataAccess
 {
-    public class EfRepository<T> : IRepository<T> where T : BaseEntity
+    public class EfRepository<T> : IRepository<T> where T : class, IBaseEntity
     {
         private readonly DeeFlatIs4DbContext _db;
         private readonly DbSet<T> _set;

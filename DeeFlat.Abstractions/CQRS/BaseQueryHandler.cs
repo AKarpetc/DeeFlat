@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DeeFlat.Abstractions.CQRS
@@ -23,5 +24,11 @@ namespace DeeFlat.Abstractions.CQRS
     public abstract class BaseQueryHandler<TQuery, TResult> : RequestHandler<TQuery, TResult>
         where TQuery : IQuery<TResult>
     {
+    }
+
+    public abstract class BaseQueryHandlerAsync<TQuery, TResult> : IRequestHandler<TQuery, TResult>
+        where TQuery : IQuery<TResult>
+    {
+        public abstract Task<TResult> Handle(TQuery request, CancellationToken cancellationToken);
     }
 }

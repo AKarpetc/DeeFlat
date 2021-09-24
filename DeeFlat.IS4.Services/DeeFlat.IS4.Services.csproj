@@ -5,8 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DeeFlat.Abstractions\DeeFlat.Abstractions.csproj" />
     <ProjectReference Include="..\DeeFlat.IS4\DeeFlat.IS4.Core\DeeFlat.IS4.Core.csproj" />
+    <ProjectReference Include="..\DeeFlat.IS4\DeeFlat.IS4.DataAccess\DeeFlat.IS4.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

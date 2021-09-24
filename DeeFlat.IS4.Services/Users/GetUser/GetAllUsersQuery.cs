@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DeeFlat.IS4.Services.Users.GetUserQuery
 {
-    public class GetAllUsersQuery : IQuery<IEnumerable<UsersDTO>>
+    public class GetAllUsersQuery : IQuery<IEnumerable<UserDTO>>
     {
 
     }

@@ -16,6 +16,8 @@ using Microsoft.OpenApi.Models;
 using System;
 using DeeFlat.Abstractions.Repositories;
 using DeeFlat.IS4.DataAccess;
+using DeeFlat.IS4.Services.Users.GetUserQuery;
+using MediatR;
 
 namespace DeeFlat.IS4.WebHost
 {
@@ -53,7 +55,14 @@ namespace DeeFlat.IS4.WebHost
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
+            // По скольку модели IDentity не унаследованы от BaseEntity либо писать свой репозиторий для каждого объекта либо использовать БД
+            // поскольку микросервис содержит мало классов решил использовать отдельные репозитории для каждого сервиса
+
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+
+            services.AddAutoMapper(typeof(Startup).Assembly, typeof(UserDTO).Assembly);
+
+
 
             var builder = services.AddIdentityServer(options =>
             {
@@ -89,6 +98,8 @@ namespace DeeFlat.IS4.WebHost
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DeeFlat.IS4.WebHost", Version = "v1" });
             });
+
+            services.AddMediatR(typeof(UserDTO));
         }
 
         public void Configure(IApplicationBuilder app, DeeFlatIs4DbContext db)

@@ -1,16 +1,15 @@
-﻿using DeeFlat.Abstractions.Abstractions;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNetCore.Identity;
+﻿using DeeFlat.Abstractions.CQRS;
+using DeeFlat.IS4.Services.Users.AddUserCommand;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DeeFlat.IS4.Core.Domain
+namespace DeeFlat.IS4.Services.Users
 {
-
-    // Add profile data for application users by adding properties to the ApplicationUser class
-    public class ApplicationUser : IdentityUser<Guid>, IBaseEntity
+    public class UpdateUserCommand : ICommand
     {
         [StringLength(50)]
         public string Name { get; set; }
@@ -29,7 +28,8 @@ namespace DeeFlat.IS4.Core.Domain
 
         public string City { get; set; }
 
-        public virtual ICollection<UserSkill> Skills { get; set; }
+        public Skil[] Skils { get; set; }
 
+        public string Email { get; set; }
     }
 }

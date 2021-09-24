@@ -1,4 +1,7 @@
 ﻿using DeeFlat.IS4.DataAccess.Data;
+using DeeFlat.IS4.Services.Users.AddUserCommand;
+using DeeFlat.IS4.Services.Users.GetUserQuery;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,25 +15,24 @@ namespace DeeFlat.IS4.WebHost.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        DeeFlatIs4DbContext _db;
-        public UserController(DeeFlatIs4DbContext db)
+        IMediator _mediator;
+
+        public UserController(IMediator mediator)
         {
-            _db = db;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var result = _db.Users.Select(x => new
-            {
-                x.Name,
-                x.Surname,
-                x.Email,
-                x.BornDate,
-                x.AboutMe,
-                x.UserName
+            var result = await _mediator.Send(new GetAllUsersQuery());
+            return Ok(result);
+        }
 
-            });
+        [HttpPost]
+        public async Task<IActionResult> Post(AddUserCommand user)
+        {
+            var result = await _mediator.Send(user);
             return Ok(result);
         }
 

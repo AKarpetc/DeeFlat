@@ -5,7 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="4.1.2" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
+    <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.3" />
 
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.10" />
 
@@ -32,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DeeFlat.IS4.Services\DeeFlat.IS4.Services.csproj" />
     <ProjectReference Include="..\DeeFlat.IS4.Core\DeeFlat.IS4.Core.csproj" />
     <ProjectReference Include="..\DeeFlat.IS4.DataAccess\DeeFlat.IS4.DataAccess.csproj" />
   </ItemGroup>
