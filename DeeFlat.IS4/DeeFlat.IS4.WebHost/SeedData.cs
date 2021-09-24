@@ -24,7 +24,7 @@ namespace DeeFlat.IS4.WebHost
             services.AddDbContext<DeeFlatIs4DbContext>(options =>
                options.UseNpgsql(connectionString));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<DeeFlatIs4DbContext>()
                 .AddDefaultTokenProviders();
 
@@ -33,6 +33,8 @@ namespace DeeFlat.IS4.WebHost
                 using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
                 {
                     var context = scope.ServiceProvider.GetService<DeeFlatIs4DbContext>();
+
+                  //  context.Database.EnsureDeleted();
 
                     context.Database.Migrate();
 

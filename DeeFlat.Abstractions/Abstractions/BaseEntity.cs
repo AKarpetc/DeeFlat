@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeeFlat.IS4.Core.Domain
+namespace DeeFlat.Abstractions.Abstractions
 {
-    public class BaseEntity
+    public class BaseEntity: IBaseEntity
     {
         public Guid Id { get; set; }
     }

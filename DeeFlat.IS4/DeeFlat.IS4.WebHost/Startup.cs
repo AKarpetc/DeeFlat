@@ -14,6 +14,8 @@ using DeeFlat.IS4.Core.Domain;
 using DeeFlat.IS4.DataAccess.Data;
 using Microsoft.OpenApi.Models;
 using System;
+using DeeFlat.Abstractions.Repositories;
+using DeeFlat.IS4.DataAccess;
 
 namespace DeeFlat.IS4.WebHost
 {
@@ -45,9 +47,13 @@ namespace DeeFlat.IS4.WebHost
             services.AddDbContext<DeeFlatIs4DbContext>(options =>
                 options.UseNpgsql(conectionString));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<DeeFlatIs4DbContext>()
+                .AddDefaultTokenProviders()
+                .AddDefaultUI()
                 .AddDefaultTokenProviders();
+
+            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             var builder = services.AddIdentityServer(options =>
             {
