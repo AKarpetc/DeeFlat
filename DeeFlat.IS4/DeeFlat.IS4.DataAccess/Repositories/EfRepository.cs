@@ -76,5 +76,10 @@ namespace DeeFlat.IS4.DataAccess
             await _db.SaveChangesAsync();
         }
 
+        public async Task Save()
+        {
+            await _db.SaveChangesAsync();
+        }
+
     }
 }
