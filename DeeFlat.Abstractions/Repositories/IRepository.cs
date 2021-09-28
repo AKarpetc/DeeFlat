@@ -29,7 +29,7 @@ namespace DeeFlat.Abstractions.Repositories
 
         Task<T> GetFirstWhereAsync(Expression<Func<T, bool>> predicate);
 
-        Task<T> Save();
+        Task<T> SaveAsync();
     }
 
 }
