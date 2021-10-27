@@ -28,6 +28,8 @@ namespace DeeFlat.Abstractions.Repositories
         Task<IEnumerable<T>> GetWhereAsync(Expression<Func<T, bool>> predicate);
 
         Task<T> GetFirstWhereAsync(Expression<Func<T, bool>> predicate);
+
+        Task SaveAsync();
     }
 
 }
