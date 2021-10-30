@@ -29,7 +29,7 @@ namespace DeeFlat.IS4.Services.Users.AddUserCommand
 
         public string City { get; set; }
 
-        public Skil[] Skills { get; set; }
+        public Skill[] Skills { get; set; }
 
         public string Email { get; set; }
 
