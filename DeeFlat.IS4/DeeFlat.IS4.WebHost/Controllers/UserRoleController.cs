@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DeeFlat.IS4.WebHost.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,23 +12,32 @@ namespace DeeFlat.IS4.WebHost.Controllers
     [ApiController]
     public class UserRoleController : ControllerBase
     {
+        [HttpGet("GetFreeRoles")]
         public async Task<ActionResult> GetRoles()
         {
             return Ok();
         }
 
-        public async Task<ActionResult> GetFreeRoles(Guid userId)
+        [HttpGet("GetFreeRoles")]
+        public async Task<ActionResult> GetFreeRoles(Guid userId)//TODO:Позже заменить на UserId из Identity
         {
             return Ok();
         }
 
-        public async Task<ActionResult> GetUserRoles(Guid userId)
+        [HttpGet("GetUserRoles")]
+        public async Task<ActionResult> GetUserRoles(Guid userId)//TODO:Позже заменить на UserId из Identity
         {
             return Ok();
         }
 
-        [HttpPost]
-        public async Task<ActionResult> AddRole(Guid userId)
+        [HttpPost("AddRole")]
+        public async Task<ActionResult> AddRole(ChnageRoleReques request)//TODO:Позже заменить на UserId из Identity
+        {
+            return Ok();
+        }
+
+        [HttpPost("RemoveRole")]
+        public async Task<ActionResult>RemoveRole(ChnageRoleReques request)//TODO:Позже заменить на UserId из Identity
         {
             return Ok();
         }
