@@ -31,7 +31,7 @@ namespace DeeFlat.IS4.Services.Users
 
         public string City { get; set; }
 
-        public Skil[] Skills { get; set; }
+        public Skill[] Skills { get; set; }
 
         public string Email { get; set; }
         public string PhoneNumber { get; set; }

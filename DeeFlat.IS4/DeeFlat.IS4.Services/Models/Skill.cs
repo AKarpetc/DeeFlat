@@ -2,7 +2,7 @@
 
 namespace DeeFlat.IS4.Services.Users.AddUserCommand
 {
-    public class Skil
+    public class Skill
     {
         public Guid Id { get; set; }
 
