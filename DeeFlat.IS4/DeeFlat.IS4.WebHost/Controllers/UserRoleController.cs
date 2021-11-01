@@ -18,26 +18,18 @@ namespace DeeFlat.IS4.WebHost.Controllers
             return Ok();
         }
 
-        [HttpGet("GetFreeRoles")]
-        public async Task<ActionResult> GetFreeRoles(Guid userId)//TODO:Позже заменить на UserId из Identity
+        public async Task<ActionResult> GetFreeRoles(Guid userId)
         {
             return Ok();
         }
 
-        [HttpGet("GetUserRoles")]
-        public async Task<ActionResult> GetUserRoles(Guid userId)//TODO:Позже заменить на UserId из Identity
+        public async Task<ActionResult> GetUserRoles(Guid userId)
         {
             return Ok();
         }
 
-        [HttpPost("AddRole")]
-        public async Task<ActionResult> AddRole(ChnageRoleReques request)//TODO:Позже заменить на UserId из Identity
-        {
-            return Ok();
-        }
-
-        [HttpPost("RemoveRole")]
-        public async Task<ActionResult>RemoveRole(ChnageRoleReques request)//TODO:Позже заменить на UserId из Identity
+        [HttpPost]
+        public async Task<ActionResult> AddRole(Guid userId)
         {
             return Ok();
         }
