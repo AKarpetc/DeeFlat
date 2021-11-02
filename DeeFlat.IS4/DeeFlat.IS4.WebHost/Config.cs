@@ -34,10 +34,10 @@ namespace DeeFlat.IS4.WebHost
                     ClientName = "React WEB Application",
 
                     AllowAccessTokensViaBrowser = true,
-                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
                     ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
                     RequireConsent = false,
-                    RedirectUris = { "http://localhost:3000"},
+                    RedirectUris = { "http://localhost:3000", "http://localhost:3000/authentication/callback"},
                     PostLogoutRedirectUris ={"http://localhost:3000"},
                     AllowedCorsOrigins = { "http://localhost:3000" },
 
