@@ -11,13 +11,20 @@ import NotFound from './pages/NotFound';
 import ProductList from './pages/ProductList';
 import Register from './pages/Register';
 import Settings from './pages/Settings';
+import { withOidcSecure, OidcSecure } from '@axa-fr/react-oidc-context';
+
+var SecureAccount = function () {
+  return (<OidcSecure>
+    <Account />
+  </OidcSecure>)
+}
 
 const routes = [
   {
     path: 'app',
     element: <DashboardLayout />,
     children: [
-      { path: 'account', element: <Account /> },
+      { path: 'account', element: <SecureAccount /> },
       { path: 'customers', element: <CustomerList /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },

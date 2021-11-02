@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -23,6 +23,8 @@ import {
   List as ListIcon
 } from 'react-feather';
 import NavItem from './NavItem';
+import { useReactOidc } from '@axa-fr/react-oidc-context';
+import { User, UserManagerEvents, UserManager } from 'oidc-client';
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
@@ -78,8 +80,52 @@ const items = [
   }
 ];
 
+const AuthBox = function () {
+  const { isEnabled, login, logout, signinSilent, oidcUser } = useReactOidc();
+  console.log("oidcUser", oidcUser);
+
+  if (oidcUser || !isEnabled) {
+    return (<>
+      <Avatar
+        component={RouterLink}
+        sx={{
+          cursor: 'pointer',
+          width: 64,
+          height: 64
+        }}
+        to="/app/account"
+      />
+      <Typography
+        color="textPrimary"
+        variant="h5"
+      >
+        {oidcUser.profile.name + " " + oidcUser.profile.family_name}
+      </Typography>
+    </>)
+  } else {
+    return (<>
+      <Avatar
+        component={RouterLink}
+        sx={{
+          cursor: 'pointer',
+          width: 64,
+          height: 64
+        }}
+        to="/app/account"
+      />
+      <Button onClick={login}>
+        Вход
+      </Button>
+    </>)
+  }
+
+}
+
+
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
+
+
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -103,28 +149,8 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           p: 2
         }}
       >
-        <Avatar
-          component={RouterLink}
-          src={user.avatar}
-          sx={{
-            cursor: 'pointer',
-            width: 64,
-            height: 64
-          }}
-          to="/app/account"
-        />
-        <Typography
-          color="textPrimary"
-          variant="h5"
-        >
-          {user.name}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {user.jobTitle}
-        </Typography>
+        <AuthBox />
+
       </Box>
       <Divider />
       <Box sx={{ p: 2 }}>

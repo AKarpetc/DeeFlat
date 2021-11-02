@@ -34,7 +34,7 @@ namespace DeeFlat.IS4.WebHost
                 {
                     var context = scope.ServiceProvider.GetService<DeeFlatIs4DbContext>();
 
-                  //  context.Database.EnsureDeleted();
+                    context.Database.EnsureDeleted();
 
                     context.Database.Migrate();
 
@@ -56,12 +56,7 @@ namespace DeeFlat.IS4.WebHost
                             throw new Exception(result.Errors.First().Description);
                         }
 
-                        result = userMgr.AddClaimsAsync(alice, new Claim[]{
-                            new Claim(JwtClaimTypes.Name, "Alice Smith"),
-                            new Claim(JwtClaimTypes.GivenName, "Alice"),
-                            new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                            new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
-                        }).Result;
+                        result = SetClaims(userMgr, alice);
                         if (!result.Succeeded)
                         {
                             throw new Exception(result.Errors.First().Description);
@@ -90,13 +85,7 @@ namespace DeeFlat.IS4.WebHost
                             throw new Exception(result.Errors.First().Description);
                         }
 
-                        result = userMgr.AddClaimsAsync(bob, new Claim[]{
-                            new Claim(JwtClaimTypes.Name, "Bob Smith"),
-                            new Claim(JwtClaimTypes.GivenName, "Bob"),
-                            new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                            new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
-                            new Claim("location", "somewhere")
-                        }).Result;
+                        result = SetClaims(userMgr, bob);
                         if (!result.Succeeded)
                         {
                             throw new Exception(result.Errors.First().Description);
@@ -109,6 +98,17 @@ namespace DeeFlat.IS4.WebHost
                     }
                 }
             }
+        }
+
+        private static IdentityResult SetClaims(UserManager<ApplicationUser> userMgr, ApplicationUser alice)
+        {
+            return userMgr.AddClaimsAsync(alice, new Claim[]{
+                            new Claim(JwtClaimTypes.Name, alice.Name),
+                            new Claim(JwtClaimTypes.GivenName, ""),
+                            new Claim(JwtClaimTypes.FamilyName, alice.Surname),
+                            new Claim(JwtClaimTypes.WebSite, alice.Email),
+                            new Claim(JwtClaimTypes.Email, alice.Email),
+                          }).Result;
         }
     }
 }

@@ -13,13 +13,11 @@ import {
 } from '@material-ui/core';
 import FacebookIcon from '../icons/Facebook';
 import GoogleIcon from '../icons/Google';
-
 import { useAuth } from 'oidc-react';
+import { useReactOidc } from '@axa-fr/react-oidc-context';
 
 const Login = () => {
   const navigate = useNavigate();
-  const auth = useAuth();
-
   return (
     <>
       <Helmet>

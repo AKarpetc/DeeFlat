@@ -5,35 +5,32 @@ import { ThemeProvider, StyledEngineProvider } from '@material-ui/core';
 import GlobalStyles from './components/GlobalStyles';
 import theme from './theme';
 import routes from './routes';
+import CustomCallback from './pages/CustomCallback';
+import { AuthenticationProvider, oidcLog, InMemoryWebStorage } from '@axa-fr/react-oidc-context';
+import oidcConfiguration from './configuration';
 
 
-const oidcConfig = {
-  onSignIn: async (user: any) => {
-    alert('You just signed in, congratz! Check out the console!');
-    console.log(user);
-   // window.location.hash = '';
-  },
-  authority: 'https://localhost:5001/',
-  clientId: 'spa.client',
-  client_secret: ["511536EF-F270-4058-80CA-1C89C192F69A"],
-  grant_type: ["implicit"],
-  responseType: 'id_token',
-  redirectUri: 'http://localhost:3000',
-  scope: "openid profile", // add other scopes here
-};
 
 const App = () => {
   const content = useRoutes(routes);
 
   return (
-    <AuthProvider {...oidcConfig}>
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme}>
-          <GlobalStyles />
+
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <AuthenticationProvider
+          configuration={oidcConfiguration}
+          loggerLevel={oidcLog.DEBUG}
+          isEnabled={true}
+          callbackComponentOverride={CustomCallback}
+          UserStore={InMemoryWebStorage}
+        >
           {content}
-        </ThemeProvider>
-      </StyledEngineProvider>
-    </AuthProvider>
+        </AuthenticationProvider>
+      </ThemeProvider>
+    </StyledEngineProvider>
+
   );
 };
 

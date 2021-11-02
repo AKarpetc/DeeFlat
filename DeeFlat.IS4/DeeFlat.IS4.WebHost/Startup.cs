@@ -148,6 +148,7 @@ namespace DeeFlat.IS4.WebHost
             app.UseIdentityServer();
             app.UseAuthorization();
             app.UseAuthentication();
+         
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();

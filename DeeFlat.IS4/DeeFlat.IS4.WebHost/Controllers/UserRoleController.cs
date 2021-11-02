@@ -12,24 +12,26 @@ namespace DeeFlat.IS4.WebHost.Controllers
     [ApiController]
     public class UserRoleController : ControllerBase
     {
-        [HttpGet("GetFreeRoles")]
+        [HttpGet("GetRoles")]
         public async Task<ActionResult> GetRoles()
         {
             return Ok();
         }
 
+        [HttpGet("GetFreeRoles")]
         public async Task<ActionResult> GetFreeRoles(Guid userId)
         {
             return Ok();
         }
 
+        [HttpGet("GetUserRoles")]
         public async Task<ActionResult> GetUserRoles(Guid userId)
         {
             return Ok();
         }
 
-        [HttpPost]
-        public async Task<ActionResult> AddRole(Guid userId)
+        [HttpPost("AddRole")]
+        public async Task<ActionResult> AddRole(ChnageRoleReques model)
         {
             return Ok();
         }
