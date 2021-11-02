@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { useEffect, useState } from 'react';
 import {
   Avatar,
   Box,
@@ -10,64 +11,71 @@ import {
   Typography
 } from '@material-ui/core';
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  city: 'Los Angeles',
-  country: 'USA',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith',
-  timezone: 'GTM-7'
-};
 
-const AccountProfile = (props) => (
-  <Card {...props}>
-    <CardContent>
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
-        <Avatar
-          src={user.avatar}
+const AccountProfile = (props) => {
+
+  const [user, setUser] = useState({
+    avatar: '/static/images/avatars/avatar_6.png',
+    city: 'Los Angeles',
+    country: 'USA',
+    jobTitle: 'Senior Developer',
+    name: 'Katarina Smith',
+    timezone: 'GTM-7'
+  });
+
+  useEffect(() => {
+    fetch("/api/User/GetCurentUserInfo").then((result) => {
+      return result.json();
+    }).then((model) => {
+      console.log('result', model);
+      setUser(model);
+    });
+
+  }, []);
+  return (
+    <Card {...props}>
+      <CardContent>
+        <Box
           sx={{
-            height: 100,
-            width: 100
+            alignItems: 'center',
+            display: 'flex',
+            flexDirection: 'column'
           }}
-        />
-        <Typography
-          color="textPrimary"
-          gutterBottom
-          variant="h3"
         >
-          {user.name}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body1"
+          <Avatar
+            src={user.avatar}
+            sx={{
+              height: 100,
+              width: 100
+            }}
+          />
+          <Typography
+            color="textPrimary"
+            gutterBottom
+            variant="h3"
+          >
+            {user.name + " " + user.surname}
+          </Typography>
+          <Typography
+            color="textSecondary"
+            variant="body1"
+          >
+            {"Email: " + `${user.email}`}
+          </Typography>
+        </Box>
+      </CardContent>
+      <Divider />
+      <CardActions>
+        <Button
+          color="primary"
+          fullWidth
+          variant="text"
         >
-          {`${user.city} ${user.country}`}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body1"
-        >
-          {`${moment().format('hh:mm A')} ${user.timezone}`}
-        </Typography>
-      </Box>
-    </CardContent>
-    <Divider />
-    <CardActions>
-      <Button
-        color="primary"
-        fullWidth
-        variant="text"
-      >
-        Upload picture
-      </Button>
-    </CardActions>
-  </Card>
-);
+          Upload picture
+        </Button>
+      </CardActions>
+    </Card>
+  )
+};
 
 export default AccountProfile;

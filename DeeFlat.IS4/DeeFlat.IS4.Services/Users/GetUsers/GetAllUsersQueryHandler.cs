@@ -31,7 +31,5 @@ namespace DeeFlat.IS4.Services.Users.GetUsers
 
             return users;
         }
-
-
     }
 }

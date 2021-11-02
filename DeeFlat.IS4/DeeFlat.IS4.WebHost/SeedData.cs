@@ -34,7 +34,7 @@ namespace DeeFlat.IS4.WebHost
                 {
                     var context = scope.ServiceProvider.GetService<DeeFlatIs4DbContext>();
 
-                    context.Database.EnsureDeleted();
+                   // context.Database.EnsureDeleted();
 
                     context.Database.Migrate();
 
@@ -103,8 +103,8 @@ namespace DeeFlat.IS4.WebHost
         private static IdentityResult SetClaims(UserManager<ApplicationUser> userMgr, ApplicationUser alice)
         {
             return userMgr.AddClaimsAsync(alice, new Claim[]{
-                            new Claim(JwtClaimTypes.Name, alice.Name),
-                            new Claim(JwtClaimTypes.GivenName, ""),
+                            new Claim(JwtClaimTypes.Name, alice.UserName),
+                            new Claim(JwtClaimTypes.GivenName, alice.Name),
                             new Claim(JwtClaimTypes.FamilyName, alice.Surname),
                             new Claim(JwtClaimTypes.WebSite, alice.Email),
                             new Claim(JwtClaimTypes.Email, alice.Email),

@@ -19,18 +19,24 @@ var SecureAccount = function () {
   </OidcSecure>)
 }
 
+var SecureElement = function (Element) {
+  return (<OidcSecure>
+    <Element></Element>
+  </OidcSecure>)
+}
+
 const routes = [
   {
     path: 'app',
     element: <DashboardLayout />,
     children: [
-      { path: 'account', element: <SecureAccount /> },
-      { path: 'customers', element: <CustomerList /> },
+      { path: 'account', element: SecureElement(Account) },
+      { path: 'customers', element: SecureElement(CustomerList) },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },
       { path: 'settings', element: <Settings /> },
-      { path: 'learning', element: <CourcesList /> },
-      { path: 'groups', element: <GroupList /> },
+      { path: 'learning', element: SecureElement(CourcesList) },
+      { path: 'groups', element: SecureElement(GroupList) },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },
