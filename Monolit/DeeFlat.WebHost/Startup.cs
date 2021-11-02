@@ -55,30 +55,25 @@ namespace DeeFlat.WebHost
 
             var confOpenId = Configuration.GetSection("OpenIdConnectSettings").Get<OpenIdConnectSettings>();
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = "Cookies";
-                options.DefaultChallengeScheme = "oidc";
-            })
-            .AddCookie("Cookies")
-            .AddOpenIdConnect("oidc", options =>
-            {
-                var httpClientHandler = new HttpClientHandler();
-                httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, error) => true;
-                options.BackchannelHttpHandler = httpClientHandler;
+            services.AddAuthentication("Bearer")
+             .AddJwtBearer("Bearer", options =>
+             {
+                 options.Authority = "https://localhost:5001";
+                 options.Audience = "test-api";
+                 options.BackchannelHttpHandler = httpClientHandler;
+                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                 {
+                     ValidateAudience = false
+                 };
+             });
 
-                options.Authority = confOpenId.Authority;
-                options.ClientId = confOpenId.ClientId;
-                options.ClientSecret = confOpenId.ClientSecret;
-                options.ResponseType = confOpenId.ResponseType;
-                options.RequireHttpsMetadata = false;
-
-                foreach (var scope in confOpenId.Scopes)
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ApiScope", policy =>
                 {
-                    options.Scope.Add(scope);
-                }
-                options.SaveTokens = true;
-
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("scope2", "scope1", "api1");
+                });
             });
 
             services.AddControllers();

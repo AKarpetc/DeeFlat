@@ -17,6 +17,12 @@ namespace DeeFlat.IS4.WebHost
                 new IdentityResources.Profile(),
                    };
 
+        public static IEnumerable<ApiResource> ApiResources =>
+           new ApiResource[]
+           {
+              new ApiResource("test-api", "API Test")
+           };
+
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
@@ -41,7 +47,7 @@ namespace DeeFlat.IS4.WebHost
                     PostLogoutRedirectUris ={"http://localhost:3000"},
                     AllowedCorsOrigins = { "http://localhost:3000" },
 
-                    AllowedScopes = {  "openid", "profile", "scope2", "scope1" }
+                    AllowedScopes = {  "openid", "profile", "scope2", "scope1", "api1", "test-api" }
                 },
 
                 // interactive client using code flow + pkce

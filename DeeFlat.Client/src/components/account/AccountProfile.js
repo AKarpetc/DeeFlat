@@ -24,11 +24,15 @@ const AccountProfile = (props) => {
   });
 
   useEffect(() => {
-    fetch("/api/User/GetCurentUserInfo").then((result) => {
+    fetch("/api1/api/User/GetCurentUserInfo").then((result) => {
       return result.json();
     }).then((model) => {
       console.log('result', model);
       setUser(model);
+    });
+
+    fetch("/api2/api/v1/Cources/GetAuthorized").then((result) => {
+      console.log(result);
     });
 
   }, []);
