@@ -28,7 +28,7 @@ namespace DeeFlat.IS4.WebHost
         public IWebHostEnvironment _environment { get; }
         public IConfiguration Configuration { get; }
 
-        readonly string SpaClient = "_spaClient";
+        const string SpaClient = "_spaClient";
         public Startup(IWebHostEnvironment environment, IConfiguration configuration)
         {
             this._environment = environment;
@@ -80,6 +80,8 @@ namespace DeeFlat.IS4.WebHost
             })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiScopes(Config.ApiScopes)
+                .AddInMemoryApiResources(Config.ApiResources)
+
                 .AddInMemoryClients(Config.Clients)
                 .AddAspNetIdentity<ApplicationUser>();
 
@@ -112,6 +114,9 @@ namespace DeeFlat.IS4.WebHost
                                   builder =>
                                   {
                                       builder.WithOrigins("http://localhost:3000");
+                                      builder.WithOrigins("http://localhost:5006");
+                                      builder.WithOrigins("https://localhost:5005");
+
                                   });
             });
 
@@ -154,7 +159,6 @@ namespace DeeFlat.IS4.WebHost
             app.UseRouting();
             app.UseIdentityServer();
             app.UseAuthorization();
-            app.UseAuthentication();
          
             app.UseEndpoints(endpoints =>
             {

@@ -113,7 +113,7 @@ const AuthBox = function () {
         }}
         to="/app/account"
       />
-      <Button onClick={login}>
+      <Button onClick={signinSilent}>
         Вход
       </Button>
     </>)

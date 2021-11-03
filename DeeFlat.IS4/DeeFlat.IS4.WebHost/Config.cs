@@ -20,7 +20,7 @@ namespace DeeFlat.IS4.WebHost
         public static IEnumerable<ApiResource> ApiResources =>
            new ApiResource[]
            {
-              new ApiResource("test-api", "API Test")
+              new ApiResource("dictionary-api", "API Test dictionary")
            };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -28,6 +28,7 @@ namespace DeeFlat.IS4.WebHost
             {
                 new ApiScope("scope1"),
                 new ApiScope("scope2"),
+                new ApiScope("dictionary-api"),
             };
 
         public static IEnumerable<Client> Clients =>
@@ -40,14 +41,29 @@ namespace DeeFlat.IS4.WebHost
                     ClientName = "React WEB Application",
 
                     AllowAccessTokensViaBrowser = true,
-                    AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
+                    AllowedGrantTypes = GrantTypes.Code,
+                    ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
+                    RequireConsent = false,
+                    RedirectUris = { "http://localhost:3000", "http://localhost:3000/authentication/callback","http://localhost:3000/authentication/silent_callback"},
+                    PostLogoutRedirectUris ={"http://localhost:3000"},
+                    AllowedCorsOrigins = { "http://localhost:3000" },
+
+                    AllowedScopes = {  "openid", "profile", "scope2", "scope1", "api1", "test-api", "dictionary-api" }
+                },
+                new Client
+                {
+                    ClientId = "spa.client1",
+                    ClientName = "React WEB Application",
+
+                    AllowAccessTokensViaBrowser = true,
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
                     RequireConsent = false,
                     RedirectUris = { "http://localhost:3000", "http://localhost:3000/authentication/callback"},
                     PostLogoutRedirectUris ={"http://localhost:3000"},
                     AllowedCorsOrigins = { "http://localhost:3000" },
 
-                    AllowedScopes = {  "openid", "profile", "scope2", "scope1", "api1", "test-api" }
+                    AllowedScopes = {  "openid", "profile", "scope2", "scope1", "api1", "test-api", "dictionary-api" }
                 },
 
                 // interactive client using code flow + pkce

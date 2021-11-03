@@ -3,6 +3,7 @@ using DeeFlat.Dictionaries.DataAccess.Data;
 using DeeFlat.Dictionaries.Services.Skills.GetSkills;
 using MassTransit;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -16,6 +17,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace DeeFlat.Dictionaries.WebHost
@@ -28,6 +30,7 @@ namespace DeeFlat.Dictionaries.WebHost
         }
 
         public IConfiguration Configuration { get; }
+        const string SpaClient = "_spaClient";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -71,6 +74,44 @@ namespace DeeFlat.Dictionaries.WebHost
             });
 
 
+            var httpClientHandler = new HttpClientHandler();
+            httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, error) => true;
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+             .AddJwtBearer("Bearer", options =>
+             {
+                 options.Authority = "https://localhost:5001";
+                 // options.Audience = "dictionary-api api openid profile";
+                 options.BackchannelHttpHandler = httpClientHandler;
+                 //options.RequireHttpsMetadata = false;
+                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                 {
+                     ValidateAudience = false
+                 };
+             });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ApiScope", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("dictionary-api");
+                });
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: SpaClient,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:3000");
+                                  });
+            });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -90,10 +131,13 @@ namespace DeeFlat.Dictionaries.WebHost
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DeeFlat.Dictionaries.WebHost v1"));
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseCookiePolicy();
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

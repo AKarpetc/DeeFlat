@@ -10,7 +10,10 @@ import {
   Divider,
   Typography
 } from '@material-ui/core';
-
+import authFetch from "../../utils/authFetch";
+import {
+  useReactOidc
+} from '@axa-fr/react-oidc-context';
 
 const AccountProfile = (props) => {
 
@@ -23,17 +26,24 @@ const AccountProfile = (props) => {
     timezone: 'GTM-7'
   });
 
+  let authRequest = authFetch();
+
+  let {
+    oidcUser
+  } = useReactOidc();
+
   useEffect(() => {
-    fetch("/api1/api/User/GetCurentUserInfo").then((result) => {
+
+    //Запрос на IdentityServer можно делать с куками
+    fetch("/admin/api/User/GetCurentUserInfo").then((result) => {
       return result.json();
     }).then((model) => {
       console.log('result', model);
       setUser(model);
     });
 
-    fetch("/api2/api/v1/Cources/GetAuthorized").then((result) => {
-      console.log(result);
-    });
+    //Запрос на WebApi других серверов делают с токеном пока реализован тока get можно развивать по необходимости
+    authRequest.get('/dicthttp/api/Skill/GetAuthorized').then(res => res.json()).then(x => console.log(x));
 
   }, []);
   return (

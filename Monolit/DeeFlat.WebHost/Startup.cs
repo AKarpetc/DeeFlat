@@ -61,6 +61,7 @@ namespace DeeFlat.WebHost
                  options.Authority = "https://localhost:5001";
                  options.Audience = "test-api";
                  options.BackchannelHttpHandler = httpClientHandler;
+                 options.RequireHttpsMetadata = false;
                  options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
                  {
                      ValidateAudience = false
