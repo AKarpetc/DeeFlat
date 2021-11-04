@@ -1,5 +1,7 @@
 using DeeFlat.Dictionaries.DataAccess.Data;
 using DeeFlat.Groups.Services.Groups.AddGroupCommand;
+using DeeFlat.Groups.WebHost.Pipelines;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,6 +48,8 @@ namespace DeeFlat.Groups.WebHost
             });
 
             services.AddMediatR(typeof(AddGroupCommand));
+            services.AddValidatorsFromAssembly(typeof(AddGroupCommand).Assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

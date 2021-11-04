@@ -8,4 +8,8 @@
     <ProjectReference Include="..\DeeFlat.Groups.DataAccess\DeeFlat.Groups.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.4" />
+  </ItemGroup>
+
 </Project>
