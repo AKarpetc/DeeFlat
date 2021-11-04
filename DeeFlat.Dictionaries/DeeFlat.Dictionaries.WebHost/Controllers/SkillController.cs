@@ -2,6 +2,7 @@
 using DeeFlat.Dictionaries.Services.Skills.GetSkills;
 using DeeFlat.Dictionaries.Services.Skills.UpdateSkill;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -24,6 +25,15 @@ namespace DeeFlat.Dictionaries.WebHost.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Get()
+        {
+            var result = await _mediator.Send(new GetAllSkillsQuery());
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("GetAuthorized")]
+        public async Task<IActionResult> GetAuthorized()
         {
             var result = await _mediator.Send(new GetAllSkillsQuery());
             return Ok(result);

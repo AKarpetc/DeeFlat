@@ -28,6 +28,7 @@ namespace DeeFlat.IS4.WebHost
         public IWebHostEnvironment _environment { get; }
         public IConfiguration Configuration { get; }
 
+        const string SpaClient = "_spaClient";
         public Startup(IWebHostEnvironment environment, IConfiguration configuration)
         {
             this._environment = environment;
@@ -64,9 +65,7 @@ namespace DeeFlat.IS4.WebHost
             // поскольку микросервис содержит мало классов решил использовать отдельные репозитории для каждого сервиса
 
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-
             services.AddAutoMapper(typeof(Startup).Assembly, typeof(UserDTO).Assembly);
-
 
 
             var builder = services.AddIdentityServer(options =>
@@ -75,12 +74,14 @@ namespace DeeFlat.IS4.WebHost
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
-
+                
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
             })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiScopes(Config.ApiScopes)
+                .AddInMemoryApiResources(Config.ApiResources)
+
                 .AddInMemoryClients(Config.Clients)
                 .AddAspNetIdentity<ApplicationUser>();
 
@@ -107,6 +108,17 @@ namespace DeeFlat.IS4.WebHost
 
             services.AddMassTransitHostedService();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: SpaClient,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:3000");
+                                      builder.WithOrigins("http://localhost:5006");
+                                      builder.WithOrigins("https://localhost:5005");
+
+                                  });
+            });
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
@@ -147,6 +159,7 @@ namespace DeeFlat.IS4.WebHost
             app.UseRouting();
             app.UseIdentityServer();
             app.UseAuthorization();
+         
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();

@@ -30,6 +30,7 @@ const NavItem = ({
     >
       <Button
         component={RouterLink}
+        
         sx={{
           color: 'text.secondary',
           fontWeight: 'medium',

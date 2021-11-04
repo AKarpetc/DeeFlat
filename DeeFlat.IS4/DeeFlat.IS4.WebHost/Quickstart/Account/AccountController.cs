@@ -21,6 +21,7 @@ namespace IdentityServerHost.Quickstart.UI
 {
     [SecurityHeaders]
     [AllowAnonymous]
+    [Route("Identity/Account")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -50,6 +51,7 @@ namespace IdentityServerHost.Quickstart.UI
         /// Entry point into the login workflow
         /// </summary>
         [HttpGet]
+        [Route("Login")]
         public async Task<IActionResult> Login(string returnUrl)
         {
             // build a model so we know what to show on the login page
@@ -69,6 +71,7 @@ namespace IdentityServerHost.Quickstart.UI
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Login")]
         public async Task<IActionResult> Login(LoginInputModel model, string button)
         {
             // check if we are in the context of an authorization request
@@ -152,6 +155,7 @@ namespace IdentityServerHost.Quickstart.UI
         /// Show logout page
         /// </summary>
         [HttpGet]
+        [Route("Logout")]
         public async Task<IActionResult> Logout(string logoutId)
         {
             // build a model so the logout page knows what to display
@@ -172,6 +176,7 @@ namespace IdentityServerHost.Quickstart.UI
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Logout")]
         public async Task<IActionResult> Logout(LogoutInputModel model)
         {
             // build a model so the logged out page knows what to display
@@ -202,6 +207,7 @@ namespace IdentityServerHost.Quickstart.UI
         }
 
         [HttpGet]
+        [Route("AccessDenied")]
         public IActionResult AccessDenied()
         {
             return View();
@@ -211,6 +217,7 @@ namespace IdentityServerHost.Quickstart.UI
         /*****************************************/
         /* helper APIs for the AccountController */
         /*****************************************/
+        [Route("BuildLoginViewModelAsync")]
         private async Task<LoginViewModel> BuildLoginViewModelAsync(string returnUrl)
         {
             var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
@@ -269,6 +276,7 @@ namespace IdentityServerHost.Quickstart.UI
             };
         }
 
+        [Route("BuildLoginViewModelAsync")]
         private async Task<LoginViewModel> BuildLoginViewModelAsync(LoginInputModel model)
         {
             var vm = await BuildLoginViewModelAsync(model.ReturnUrl);
@@ -277,6 +285,7 @@ namespace IdentityServerHost.Quickstart.UI
             return vm;
         }
 
+        [Route("BuildLogoutViewModelAsync")]
         private async Task<LogoutViewModel> BuildLogoutViewModelAsync(string logoutId)
         {
             var vm = new LogoutViewModel { LogoutId = logoutId, ShowLogoutPrompt = AccountOptions.ShowLogoutPrompt };
@@ -301,6 +310,7 @@ namespace IdentityServerHost.Quickstart.UI
             return vm;
         }
 
+        [Route("BuildLoggedOutViewModelAsync")]
         private async Task<LoggedOutViewModel> BuildLoggedOutViewModelAsync(string logoutId)
         {
             // get context information (client name, post logout redirect URI and iframe for federated signout)

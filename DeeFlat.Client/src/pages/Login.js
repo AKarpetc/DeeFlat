@@ -13,10 +13,11 @@ import {
 } from '@material-ui/core';
 import FacebookIcon from '../icons/Facebook';
 import GoogleIcon from '../icons/Google';
+import { useAuth } from 'oidc-react';
+import { useReactOidc } from '@axa-fr/react-oidc-context';
 
 const Login = () => {
   const navigate = useNavigate();
-
   return (
     <>
       <Helmet>
@@ -42,7 +43,8 @@ const Login = () => {
               password: Yup.string().max(255).required('Password is required')
             })}
             onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+              alert();
+              // navigate('/app/dashboard', { replace: true });
             }}
           >
             {({

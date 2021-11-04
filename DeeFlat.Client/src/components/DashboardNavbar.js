@@ -13,9 +13,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import Logo from './Logo';
+import { useReactOidc } from '@axa-fr/react-oidc-context';
+
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
+  const { isEnabled, login, logout, signinSilent, oidcUser } = useReactOidc();
 
   return (
     <AppBar
@@ -36,8 +39,9 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
             >
               <NotificationsIcon />
             </Badge>
+            
           </IconButton>
-          <IconButton color="inherit" size="large">
+          <IconButton onClick={logout} color="inherit" size="large">
             <InputIcon />
           </IconButton>
         </Hidden>
