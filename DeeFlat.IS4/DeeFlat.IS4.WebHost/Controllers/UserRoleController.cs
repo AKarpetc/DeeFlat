@@ -35,5 +35,11 @@ namespace DeeFlat.IS4.WebHost.Controllers
         {
             return Ok();
         }
+
+        [HttpPost("RemoveRole")]
+        public async Task<ActionResult> RemoveRole(ChnageRoleReques model)
+        {
+            return Ok();
+        }
     }
 }
