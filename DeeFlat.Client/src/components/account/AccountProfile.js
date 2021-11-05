@@ -8,7 +8,8 @@ import {
   CardActions,
   CardContent,
   Divider,
-  Typography
+  Typography,
+  Grid
 } from '@material-ui/core';
 import authFetch from "../../utils/authFetch";
 import {
@@ -43,12 +44,13 @@ const AccountProfile = (props) => {
     });
 
     //Запрос на WebApi других серверов делают с токеном пока реализован тока get можно развивать по необходимости
-    authRequest.get('/dicthttp/api/Skill/GetAuthorized').then(res => res.json()).then(x => console.log(x));
+    // authRequest.get('/dicthttp/api/Skill/GetAuthorized').then(res => res.json()).then(x => console.log(x));
 
   }, []);
   return (
     <Card {...props}>
       <CardContent>
+
         <Box
           sx={{
             alignItems: 'center',
@@ -70,12 +72,19 @@ const AccountProfile = (props) => {
           >
             {user.name + " " + user.surname}
           </Typography>
-          <Typography
-            color="textSecondary"
-            variant="body1"
-          >
-            {"Email: " + `${user.email}`}
-          </Typography>
+
+          <div class="user-info">
+            <div class="user-info__row row">
+              <div class="row__name">
+                Город
+              </div>
+              <div class="row__value">
+                {user.city}
+              </div>
+            </div>
+          </div>
+
+
         </Box>
       </CardContent>
       <Divider />
@@ -85,7 +94,7 @@ const AccountProfile = (props) => {
           fullWidth
           variant="text"
         >
-          Upload picture
+          Редактировать
         </Button>
       </CardActions>
     </Card>

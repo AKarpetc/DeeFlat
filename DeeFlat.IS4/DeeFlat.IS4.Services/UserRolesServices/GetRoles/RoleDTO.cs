@@ -10,5 +10,10 @@ namespace DeeFlat.IS4.Services.UserRolesServices.GetRoles
     public class RoleDTO : BaseDTO
     {
         public string Name { get; set; }
+
+        public string NormalizedName { get; set; }
+
+
+        public string Description { get; set; }
     }
 }

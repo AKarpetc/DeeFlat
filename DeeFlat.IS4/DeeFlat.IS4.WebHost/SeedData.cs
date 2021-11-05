@@ -13,6 +13,7 @@ using Serilog;
 using DeeFlat.IS4.Core.Domain;
 using DeeFlat.IS4.DataAccess.Data;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace DeeFlat.IS4.WebHost
 {
@@ -22,7 +23,7 @@ namespace DeeFlat.IS4.WebHost
         private static void AddRole(ApplicationRole role)
         {
             var existedRole = roleManager.FindByNameAsync(role.Name).Result;
-            if (existedRole != null)
+            if (existedRole == null)
             {
                 var result = roleManager.CreateAsync(new ApplicationRole
                 {
@@ -65,15 +66,27 @@ namespace DeeFlat.IS4.WebHost
                     context.Database.Migrate();
 
                     var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                    var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                    roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
                     var alice = userMgr.FindByNameAsync("alice").Result;
+
+
+
+
                     if (alice == null)
                     {
                         alice = new ApplicationUser
                         {
                             UserName = "alice",
                             Email = "AliceSmith@email.com",
+                            AboutMe = "Закончила университет, хочу получить новые навыки и пройти все возможные курсы для того что бы устроится на работу мечты",
+                            BornDate = DateTime.Now.AddYears(-20),
+                            City = "Астана",
+                            CountryId = 1,
+                            CountryName = "Казахстан",
+                            Skills = new List<UserSkill> { new UserSkill { Id = new Guid("96be8c8a-8f39-43b4-b0fe-47b3030724bb"), SkilName = "C#" } },
+                            PhoneNumber = "+77778880077",
+
                             EmailConfirmed = true,
                             Name = "Алис",
                             Surname = "Баранкина"
@@ -82,11 +95,14 @@ namespace DeeFlat.IS4.WebHost
 
 
                         result = userMgr.AddClaimsAsync(alice, new Claim[]{
-                            new Claim(JwtClaimTypes.Name, "Alice Smith"),
-                            new Claim(JwtClaimTypes.GivenName, "Alice"),
-                            new Claim(JwtClaimTypes.FamilyName, "Smith"),
+                            new Claim(JwtClaimTypes.NickName, "alice"),
+                            new Claim(JwtClaimTypes.Name, "alice"),
+                            new Claim(JwtClaimTypes.GivenName, "Алис"),
+                            new Claim("full_name", "Алис Баранкина"),
+                            new Claim(JwtClaimTypes.FamilyName, "Баранкина"),
                             new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
                         }).Result;
+
                         if (!result.Succeeded)
                         {
                             throw new Exception(result.Errors.First().Description);
@@ -95,6 +111,10 @@ namespace DeeFlat.IS4.WebHost
                     }
                     else
                     {
+
+                        context.UserSkills.RemoveRange(context.UserSkills.ToList());
+                        userMgr.DeleteAsync(alice).Wait();
+
                         Log.Debug("alice already exists");
                     }
 
@@ -145,7 +165,7 @@ namespace DeeFlat.IS4.WebHost
                         Name = "Teacher",
                         NormalizedName = "Преподаватель",
                         Description = "Если Вы хотите вести добавлять курсы и учить других студентов",
-                        Type= ApplicationRoleTypes.ForChoose
+                        Type = ApplicationRoleTypes.ForChoose
                     });
 
                     AddRole(new ApplicationRole

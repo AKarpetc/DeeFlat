@@ -1,4 +1,10 @@
-﻿using DeeFlat.IS4.WebHost.Models;
+﻿using DeeFlat.IS4.DataAccess.Data;
+using DeeFlat.IS4.Services.UserRolesServices.GetRoles;
+using DeeFlat.IS4.Services.Users;
+using DeeFlat.IS4.Services.Users.AddUserCommand;
+using DeeFlat.IS4.Services.Users.GetUsers;
+using DeeFlat.IS4.WebHost.Models;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,10 +18,19 @@ namespace DeeFlat.IS4.WebHost.Controllers
     [ApiController]
     public class UserRoleController : ControllerBase
     {
+        IMediator _mediator;
+
+        public UserRoleController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+
         [HttpGet("GetRoles")]
         public async Task<ActionResult> GetRoles()
         {
-            return Ok();
+            var result = await _mediator.Send(new GetAllRolesQuery());
+            return Ok(result);
         }
 
         [HttpGet("GetFreeRoles")]
