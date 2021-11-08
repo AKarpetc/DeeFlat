@@ -125,6 +125,7 @@ const AccountProfile = (props) => {
           color="primary"
           fullWidth
           variant="text"
+          onClick={props.chnageIsEdit}
         >
           Редактировать
         </Button>

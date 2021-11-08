@@ -8,7 +8,7 @@ import routes from './routes';
 import CustomCallback from './pages/CustomCallback';
 import { AuthenticationProvider, oidcLog, InMemoryWebStorage } from '@axa-fr/react-oidc-context';
 import oidcConfiguration from './configuration';
-import "./App.css";
+import "./css/App.css";
 
 
 
