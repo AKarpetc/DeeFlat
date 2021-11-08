@@ -73,13 +73,45 @@ const AccountProfile = (props) => {
             {user.name + " " + user.surname}
           </Typography>
 
-          <div class="user-info">
-            <div class="user-info__row row">
-              <div class="row__name">
+          <div className="user-info">
+            <div className="user-info__row row">
+              <div className="row__name">
+                Страна
+              </div>
+              <div className="row__value">
+                {user.countryName}
+              </div>
+            </div>
+            <div className="user-info__row row">
+              <div className="row__name">
                 Город
               </div>
-              <div class="row__value">
+              <div className="row__value">
                 {user.city}
+              </div>
+            </div>
+            <div className="user-info__row row">
+              <div className="row__name">
+                email
+              </div>
+              <div className="row__value">
+                {user.email}
+              </div>
+            </div>
+            <div className="user-info__row row">
+              <div className="row__name">
+                Дата рождение
+              </div>
+              <div className="row__value">
+                {user.bornDate}
+              </div>
+            </div>
+            <div className="user-info__row user-info__row__column row">
+              <div className="row__name">
+                Обо Мне
+              </div>
+              <div className="row__value">
+                {user.aboutMe}
               </div>
             </div>
           </div>

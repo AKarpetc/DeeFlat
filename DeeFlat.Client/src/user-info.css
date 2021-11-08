@@ -1,0 +1,6 @@
+.user-info {
+  display: flex;
+}
+.user-info__row {
+  display: flex;
+}

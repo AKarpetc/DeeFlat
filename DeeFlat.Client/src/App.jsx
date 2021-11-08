@@ -8,14 +8,13 @@ import routes from './routes';
 import CustomCallback from './pages/CustomCallback';
 import { AuthenticationProvider, oidcLog, InMemoryWebStorage } from '@axa-fr/react-oidc-context';
 import oidcConfiguration from './configuration';
+import "./App.css";
 
 
 
 const App = () => {
   const content = useRoutes(routes);
-
   return (
-
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
