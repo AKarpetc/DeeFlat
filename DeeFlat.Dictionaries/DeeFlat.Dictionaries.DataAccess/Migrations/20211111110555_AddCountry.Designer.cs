@@ -3,15 +3,17 @@ using System;
 using DeeFlat.Dictionaries.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DeeFlat.Dictionaries.DataAccess.Migrations
 {
     [DbContext(typeof(DeeFlatDictDbContext))]
-    partial class DeeFlatDictDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211111110555_AddCountry")]
+    partial class AddCountry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

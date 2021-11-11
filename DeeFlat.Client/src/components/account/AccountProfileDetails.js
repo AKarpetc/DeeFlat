@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -27,13 +27,21 @@ const states = [
 
 const AccountProfileDetails = (props) => {
   const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
+    name: 'Katarina',
+    surname: 'Smith',
     email: 'demo@devias.io',
     phone: '',
-    state: 'Alabama',
-    country: 'USA'
+    city: 'Alabama',
+    countryName: 'USA'
   });
+
+  useEffect(() => {
+    fetch("/admin/api/User/GetCurentUserInfo").then((result) => {
+      return result.json();
+    }).then((model) => {
+      setValues(model);
+    });
+  }, []);
 
   const handleChange = (event) => {
     setValues({
@@ -46,7 +54,6 @@ const AccountProfileDetails = (props) => {
     <form
       autoComplete="off"
       noValidate
-      {...props}
     >
       <Card>
         <CardHeader
@@ -68,10 +75,10 @@ const AccountProfileDetails = (props) => {
                 fullWidth
                 helperText="Please specify the first name"
                 label="First name"
-                name="firstName"
+                name="name"
                 onChange={handleChange}
                 required
-                value={values.firstName}
+                value={values.name}
                 variant="outlined"
               />
             </Grid>
@@ -83,10 +90,10 @@ const AccountProfileDetails = (props) => {
               <TextField
                 fullWidth
                 label="Last name"
-                name="lastName"
+                name="surname"
                 onChange={handleChange}
                 required
-                value={values.lastName}
+                value={values.surname}
                 variant="outlined"
               />
             </Grid>
@@ -128,10 +135,10 @@ const AccountProfileDetails = (props) => {
               <TextField
                 fullWidth
                 label="Country"
-                name="country"
+                name="countryName"
                 onChange={handleChange}
                 required
-                value={values.country}
+                value={values.countryName}
                 variant="outlined"
               />
             </Grid>
@@ -142,13 +149,13 @@ const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="Select State"
+                label="Выберите город: "
                 name="state"
                 onChange={handleChange}
                 required
                 select
                 SelectProps={{ native: true }}
-                value={values.state}
+                value={values.city}
                 variant="outlined"
               >
                 {states.map((option) => (
@@ -175,7 +182,7 @@ const AccountProfileDetails = (props) => {
             color="primary"
             variant="contained"
           >
-            Save details
+            Сохранить данные
           </Button>
         </Box>
       </Card>

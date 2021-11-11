@@ -15,5 +15,86 @@ namespace DeeFlat.Dictionaries.DataAccess.Data
         }
 
         public virtual DbSet<Skill> Skills { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            var country1Id = Guid.NewGuid();
+            var country2Id = Guid.NewGuid();
+            var country3Id = Guid.NewGuid();
+
+
+            var countries = new List<Country>{
+            new Country
+            {
+                Id=country1Id ,
+                Name="Россия",
+            },
+            new Country
+            {
+                Id=country2Id ,
+                Name="Казахстан",
+
+            },
+            new Country
+            {
+                Id=country3Id ,
+                Name="Украина",
+
+            },
+            };
+
+            var cities = new List<City>()
+            {   new City
+                    {
+                        CountryId=country1Id,
+                        Name="Москва"
+                    },
+                    new City
+                    {
+                        CountryId=country1Id,
+                        Name="Санкт-Петербург"
+                    },
+                    new City
+                    {   CountryId=country1Id,
+                        Name="Волгоград"
+                    },
+                    new City
+                    {
+                        CountryId=country2Id,
+                        Name="Алматы"
+                    },
+                    new City
+                    {
+                        CountryId=country2Id,
+                        Name="Караганда"
+                    },
+                    new City
+                    {
+                        CountryId=country2Id,
+                        Name="Астана"
+                    },
+                     new City
+                    {
+                        CountryId=country3Id,
+                        Name="Киев"
+                    },
+                    new City
+                    {
+                        CountryId=country3Id,
+                        Name="Днепр"
+                    },
+                    new City
+                    {
+                        CountryId=country3Id,
+                        Name="Одесса"
+                    }
+            };
+
+            modelBuilder.Entity<Country>().HasData(countries);
+            modelBuilder.Entity<City>().HasData(cities);
+
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

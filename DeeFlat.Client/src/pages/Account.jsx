@@ -9,12 +9,39 @@ import AccountProfile from '../components/account/AccountProfile';
 import AccountProfileDetails from '../components/account/AccountProfileDetails';
 
 const Account = () => {
-  const [isEdit, setIsEdit] = useState(true);
+
+  const [user, setUser] = useState({
+    avatar: '/static/images/avatars/avatar_6.png',
+    city: 'Los Angeles',
+    country: 'USA',
+    jobTitle: 'Senior Developer',
+    name: 'Katarina Smith',
+    timezone: 'GTM-7'
+  });
+
+  let firstReques = true;
+  useEffect(() => {
+
+    if (firstReques == true) {
+      fetch("/admin/api/User/GetCurentUserInfo").then((result) => {
+        return result.json();
+      }).then((model) => {
+        console.log('result', model);
+        setUser(model);
+      });
+      firstReques = false;
+    }
+
+    //Запрос на WebApi других серверов делают с токеном пока реализован тока get можно развивать по необходимости
+    // authRequest.get('/dicthttp/api/Skill/GetAuthorized').then(res => res.json()).then(x => console.log(x));
+
+  }, []);
+
+
+  const [isedit, setIsedit] = useState(true);
 
   function chnageIsEdit() {
-    alert();
-    setIsEdit(!isEdit);
-
+    setIsedit(!isedit);
   }
 
   return (
@@ -40,7 +67,7 @@ const Account = () => {
               md={6}
               xs={12}
             >
-              <AccountProfile isEdit={chnageIsEdit} />
+              <AccountProfile chnageIsEdit={chnageIsEdit} isedit={isedit} user={user} />
 
             </Grid>
             <Grid
@@ -49,7 +76,7 @@ const Account = () => {
               md={6}
               xs={12}
             >
-              {isEdit === true ? <AccountProfileDetails /> : <div></div>}
+              {isedit === true ? <AccountProfileDetails /> : <div></div>}
             </Grid>
           </Grid>
         </Container>

@@ -15,4 +15,9 @@
     <ProjectReference Include="..\DeeFlat.Dictionaries.DataAccess\DeeFlat.Dictionaries.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Cities\" />
+    <Folder Include="Countries\GetCountries\" />
+  </ItemGroup>
+
 </Project>
