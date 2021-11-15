@@ -15,6 +15,11 @@ namespace DeeFlat.Dictionaries.DataAccess.Data
         }
 
         public virtual DbSet<Skill> Skills { get; set; }
+        
+        public virtual DbSet<Country> Countries { get; set; }
+
+        public virtual DbSet<City> Cities { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
