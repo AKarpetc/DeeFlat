@@ -82,11 +82,11 @@ namespace DeeFlat.IS4.WebHost
                             AboutMe = "Закончила университет, хочу получить новые навыки и пройти все возможные курсы для того что бы устроится на работу мечты",
                             BornDate = DateTime.Now.AddYears(-20),
                             City = "Астана",
-                            CountryId = 1,
+                            CityId = new Guid("795321fb-2708-4695-8148-fd75e07e5292"),
+                            CountryId = new Guid("197f38bf-4d94-44ec-bf11-37040e6c6880"),
                             CountryName = "Казахстан",
                             Skills = new List<UserSkill> { new UserSkill { Id = new Guid("96be8c8a-8f39-43b4-b0fe-47b3030724bb"), SkilName = "C#" } },
                             PhoneNumber = "+77778880077",
-
                             EmailConfirmed = true,
                             Name = "Алис",
                             Surname = "Баранкина"

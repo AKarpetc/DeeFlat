@@ -9,6 +9,10 @@ namespace DeeFlat.Dictionaries.Services.Cities.GetCities
 {
     public class GetAllCitiesQuery : IQuery<IEnumerable<CityDTO>>
     {
-        public int CountryId { get; set; }
+        public GetAllCitiesQuery(Guid countryId)
+        {
+            CountryId = countryId;
+        }
+        public Guid CountryId { get; set; }
     }
 }

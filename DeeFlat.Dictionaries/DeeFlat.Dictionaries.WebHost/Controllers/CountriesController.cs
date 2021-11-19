@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DeeFlat.Dictionaries.Services.Countries.GetCountries;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,5 +13,18 @@ namespace DeeFlat.Dictionaries.WebHost.Controllers
     [ApiController]
     public class CountriesController : ControllerBase
     {
+        IMediator _mediator;
+
+        public CountriesController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var result = await _mediator.Send(new GetAllCountriesQuery());
+            return Ok(result);
+        }
     }
 }

@@ -3,25 +3,25 @@ import {
 } from '@axa-fr/react-oidc-context';
 
 
-let authFetch = function (url) {
+let authObj = function () {
     let {
         oidcUser
     } = useReactOidc();
     let token = oidcUser.id_token;
 
 
-    var get = (url) => fetch(url, {
+    let getObj = {
         headers: {
             "Authorization": `Bearer ${token}`
         }
-    });
+    };
 
 
     return {
-        get
+        get: getObj
     }
 }
 
 
 
-export default authFetch;
+export default authObj;

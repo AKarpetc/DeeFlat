@@ -21,7 +21,7 @@ namespace DeeFlat.Dictionaries.Services.Cities.GetCities
 
         public async override Task<IEnumerable<CityDTO>> Handle(GetAllCitiesQuery request, CancellationToken cancellationToken)
         {
-            var result = await _db.Cities.Select(x => new CityDTO
+            var result = await _db.Cities.Where(x => x.CountryId == request.CountryId).Select(x => new CityDTO
             {
                 Id = x.Id,
                 Name = x.Name,

@@ -12,10 +12,11 @@ namespace DeeFlat.Dictionaries.DataAccess.Data
     {
         public DeeFlatDictDbContext(DbContextOptions<DeeFlatDictDbContext> options) : base(options)
         {
+            //this.Database.EnsureDeleted();
         }
 
         public virtual DbSet<Skill> Skills { get; set; }
-        
+
         public virtual DbSet<Country> Countries { get; set; }
 
         public virtual DbSet<City> Cities { get; set; }
@@ -95,8 +96,37 @@ namespace DeeFlat.Dictionaries.DataAccess.Data
                     }
             };
 
+
+            var skills = new List<Skill>{
+            new Skill()
+            { 
+               Id=Guid.NewGuid(),
+               Name="C#",
+
+            },
+            new Skill()
+            {
+               Id=Guid.NewGuid(),
+               Name="JavaScript",
+
+            },
+            new Skill()
+            {
+               Id=Guid.NewGuid(),
+               Name="HTML",
+
+            },
+            new Skill()
+            {
+               Id=Guid.NewGuid(),
+               Name=".NET",
+
+            }
+          };
+
             modelBuilder.Entity<Country>().HasData(countries);
             modelBuilder.Entity<City>().HasData(cities);
+            modelBuilder.Entity<Skill>().HasData(skills);
 
 
             base.OnModelCreating(modelBuilder);

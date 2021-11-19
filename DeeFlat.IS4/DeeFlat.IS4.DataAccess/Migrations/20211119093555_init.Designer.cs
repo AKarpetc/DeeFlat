@@ -10,15 +10,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DeeFlat.IS4.DataAccess.Migrations
 {
     [DbContext(typeof(DeeFlatIs4DbContext))]
-    [Migration("20210924041244_initDB")]
-    partial class initDB
+    [Migration("20211119093555_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.10")
+                .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("DeeFlat.IS4.Core.Domain.ApplicationRole", b =>
@@ -41,6 +41,9 @@ namespace DeeFlat.IS4.DataAccess.Migrations
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -74,8 +77,8 @@ namespace DeeFlat.IS4.DataAccess.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CountryId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("CountryName")
                         .HasColumnType("text");
@@ -151,6 +154,12 @@ namespace DeeFlat.IS4.DataAccess.Migrations
 
                     b.Property<Guid?>("ApplicationUserId1")
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
                     b.Property<Guid>("SkilId")
                         .HasColumnType("uuid");
@@ -269,7 +278,7 @@ namespace DeeFlat.IS4.DataAccess.Migrations
             modelBuilder.Entity("DeeFlat.IS4.Core.Domain.UserSkill", b =>
                 {
                     b.HasOne("DeeFlat.IS4.Core.Domain.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("Skills")
                         .HasForeignKey("ApplicationUserId1");
 
                     b.Navigation("ApplicationUser");
@@ -324,6 +333,11 @@ namespace DeeFlat.IS4.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DeeFlat.IS4.Core.Domain.ApplicationUser", b =>
+                {
+                    b.Navigation("Skills");
                 });
 #pragma warning restore 612, 618
         }

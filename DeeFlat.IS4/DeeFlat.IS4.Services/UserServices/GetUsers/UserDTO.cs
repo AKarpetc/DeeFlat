@@ -19,9 +19,11 @@ namespace DeeFlat.IS4.Services.Users.GetUsers
 
         public string AboutMe { get; set; }
 
-        public int CountryId { get; set; }
+        public Guid CountryId { get; set; }
 
         public string CountryName { get; set; }
+
+        public Guid CityId { get; set; }
 
         public string City { get; set; }
 

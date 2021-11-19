@@ -9,21 +9,8 @@ import {
   Grid,
   TextField
 } from '@material-ui/core';
+import authObj from "../../utils/authFetch";
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-];
 
 const AccountProfileDetails = (props) => {
   const [values, setValues] = useState({
@@ -35,15 +22,42 @@ const AccountProfileDetails = (props) => {
     countryName: 'USA'
   });
 
+  const [countries, setCountries] = useState([]);
+  const [cities, setCities] = useState([]);
+
+  let loadCities = function (countruId) {
+    fetch(`/dicthttp/api/Cities?countryId=${countruId}`, authObj.get).then((result) => {
+      return result.json();
+    }).then((model) => {
+      setCities(model);
+    });
+  }
+
   useEffect(() => {
     fetch("/admin/api/User/GetCurentUserInfo").then((result) => {
       return result.json();
     }).then((model) => {
       setValues(model);
+
+      loadCities(model.countryId);
     });
+
+    console.log("authFetch", authObj);
+
+    fetch("/dicthttp/api/Countries", authObj.get).then((result) => {
+      return result.json();
+    }).then((model) => {
+      setCountries(model);
+    });
+
   }, []);
 
   const handleChange = (event) => {
+    if (event.target.name == "state") {
+        console.log("customlog",event.target);
+        loadCities(event.target.value);
+    }
+
     setValues({
       ...values,
       [event.target.name]: event.target.value
@@ -134,13 +148,24 @@ const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="Country"
-                name="countryName"
+                label="Выберите страну: "
+                name="state"
                 onChange={handleChange}
                 required
-                value={values.countryName}
+                select
+                SelectProps={{ native: true }}
+                value={values.countryId}
                 variant="outlined"
-              />
+              >
+                {countries.map((option) => (
+                  <option
+                    key={option.id}
+                    value={option.id}
+                  >
+                    {option.name}
+                  </option>
+                ))}
+              </TextField>
             </Grid>
             <Grid
               item
@@ -158,12 +183,12 @@ const AccountProfileDetails = (props) => {
                 value={values.city}
                 variant="outlined"
               >
-                {states.map((option) => (
+                {cities.map((option) => (
                   <option
-                    key={option.value}
-                    value={option.value}
+                    key={option.id}
+                    value={option.id}
                   >
-                    {option.label}
+                    {option.name}
                   </option>
                 ))}
               </TextField>

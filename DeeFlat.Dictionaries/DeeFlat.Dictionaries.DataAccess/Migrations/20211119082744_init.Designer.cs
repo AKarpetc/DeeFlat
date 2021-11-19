@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DeeFlat.Dictionaries.DataAccess.Migrations
 {
     [DbContext(typeof(DeeFlatDictDbContext))]
-    [Migration("20211111110555_AddCountry")]
-    partial class AddCountry
+    [Migration("20211119082744_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,78 +43,78 @@ namespace DeeFlat.Dictionaries.DataAccess.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("City");
+                    b.ToTable("Cities");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("da1721b8-0cf8-4098-8e07-bed7b587a88a"),
-                            CountryId = new Guid("764b2818-cf87-4823-86ec-50aace252e57"),
-                            Created = new DateTime(2021, 11, 11, 17, 5, 55, 452, DateTimeKind.Local).AddTicks(3523),
+                            Id = new Guid("c710a641-9de3-4846-8916-298b03e63999"),
+                            CountryId = new Guid("4e739bb8-86c2-4757-8241-94338bea2a2f"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 406, DateTimeKind.Local).AddTicks(4054),
                             IsDeleted = false,
                             Name = "Москва"
                         },
                         new
                         {
-                            Id = new Guid("956efb42-ccb1-459f-a9a2-6981f5410c94"),
-                            CountryId = new Guid("764b2818-cf87-4823-86ec-50aace252e57"),
-                            Created = new DateTime(2021, 11, 11, 17, 5, 55, 452, DateTimeKind.Local).AddTicks(4064),
+                            Id = new Guid("41b4846b-5b27-4437-b501-06a0e1354652"),
+                            CountryId = new Guid("4e739bb8-86c2-4757-8241-94338bea2a2f"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 406, DateTimeKind.Local).AddTicks(4608),
                             IsDeleted = false,
                             Name = "Санкт-Петербург"
                         },
                         new
                         {
-                            Id = new Guid("2dbdc4fe-bdcf-4b41-88c6-b88a503aa5a8"),
-                            CountryId = new Guid("764b2818-cf87-4823-86ec-50aace252e57"),
-                            Created = new DateTime(2021, 11, 11, 17, 5, 55, 452, DateTimeKind.Local).AddTicks(4073),
+                            Id = new Guid("9eda76d7-fc5d-4741-ada9-a51944fb9ab1"),
+                            CountryId = new Guid("4e739bb8-86c2-4757-8241-94338bea2a2f"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 406, DateTimeKind.Local).AddTicks(4652),
                             IsDeleted = false,
                             Name = "Волгоград"
                         },
                         new
                         {
-                            Id = new Guid("424f9307-8c17-4bc1-87b2-5629c2044a7a"),
-                            CountryId = new Guid("5df84f5b-5247-4a92-a714-d32cf2681664"),
-                            Created = new DateTime(2021, 11, 11, 17, 5, 55, 452, DateTimeKind.Local).AddTicks(4074),
+                            Id = new Guid("795321fb-2708-4695-8148-fd75e07e5292"),
+                            CountryId = new Guid("197f38bf-4d94-44ec-bf11-37040e6c6880"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 406, DateTimeKind.Local).AddTicks(4657),
                             IsDeleted = false,
                             Name = "Алматы"
                         },
                         new
                         {
-                            Id = new Guid("4669f20c-1bbe-41dd-b7d5-ebfbc6bdb97c"),
-                            CountryId = new Guid("5df84f5b-5247-4a92-a714-d32cf2681664"),
-                            Created = new DateTime(2021, 11, 11, 17, 5, 55, 452, DateTimeKind.Local).AddTicks(4076),
+                            Id = new Guid("25156735-f68d-4d70-87d0-1028d080cdcd"),
+                            CountryId = new Guid("197f38bf-4d94-44ec-bf11-37040e6c6880"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 406, DateTimeKind.Local).AddTicks(4659),
                             IsDeleted = false,
                             Name = "Караганда"
                         },
                         new
                         {
-                            Id = new Guid("6a1f5baa-ae40-474a-a0f8-975e8eecc650"),
-                            CountryId = new Guid("5df84f5b-5247-4a92-a714-d32cf2681664"),
-                            Created = new DateTime(2021, 11, 11, 17, 5, 55, 452, DateTimeKind.Local).AddTicks(4082),
+                            Id = new Guid("bc3cc28d-1627-4f77-98ea-55fdee8745b0"),
+                            CountryId = new Guid("197f38bf-4d94-44ec-bf11-37040e6c6880"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 406, DateTimeKind.Local).AddTicks(4665),
                             IsDeleted = false,
                             Name = "Астана"
                         },
                         new
                         {
-                            Id = new Guid("fda27f30-7e52-4750-abcc-0dd919798918"),
-                            CountryId = new Guid("f77584e5-6ddc-4a6e-b856-42d240754054"),
-                            Created = new DateTime(2021, 11, 11, 17, 5, 55, 452, DateTimeKind.Local).AddTicks(4084),
+                            Id = new Guid("3ada4f6a-0773-4b4e-bee5-4b8fe01e20e8"),
+                            CountryId = new Guid("2b7fad61-2265-4efd-8b3a-86b95b1e51fd"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 406, DateTimeKind.Local).AddTicks(4667),
                             IsDeleted = false,
                             Name = "Киев"
                         },
                         new
                         {
-                            Id = new Guid("859d0c88-c2b9-48d0-857a-80deb6a5e94f"),
-                            CountryId = new Guid("f77584e5-6ddc-4a6e-b856-42d240754054"),
-                            Created = new DateTime(2021, 11, 11, 17, 5, 55, 452, DateTimeKind.Local).AddTicks(4086),
+                            Id = new Guid("070f5927-f28a-482d-b3e7-61f36c5699b4"),
+                            CountryId = new Guid("2b7fad61-2265-4efd-8b3a-86b95b1e51fd"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 406, DateTimeKind.Local).AddTicks(4668),
                             IsDeleted = false,
                             Name = "Днепр"
                         },
                         new
                         {
-                            Id = new Guid("385b1ff3-2dc4-4fb8-907d-172a63292975"),
-                            CountryId = new Guid("f77584e5-6ddc-4a6e-b856-42d240754054"),
-                            Created = new DateTime(2021, 11, 11, 17, 5, 55, 452, DateTimeKind.Local).AddTicks(4130),
+                            Id = new Guid("f8395499-507c-4fdc-9321-5b016287b490"),
+                            CountryId = new Guid("2b7fad61-2265-4efd-8b3a-86b95b1e51fd"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 406, DateTimeKind.Local).AddTicks(4670),
                             IsDeleted = false,
                             Name = "Одесса"
                         });
@@ -137,27 +137,27 @@ namespace DeeFlat.Dictionaries.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Country");
+                    b.ToTable("Countries");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("764b2818-cf87-4823-86ec-50aace252e57"),
-                            Created = new DateTime(2021, 11, 11, 17, 5, 55, 451, DateTimeKind.Local).AddTicks(976),
+                            Id = new Guid("4e739bb8-86c2-4757-8241-94338bea2a2f"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 405, DateTimeKind.Local).AddTicks(1265),
                             IsDeleted = false,
                             Name = "Россия"
                         },
                         new
                         {
-                            Id = new Guid("5df84f5b-5247-4a92-a714-d32cf2681664"),
-                            Created = new DateTime(2021, 11, 11, 17, 5, 55, 452, DateTimeKind.Local).AddTicks(3246),
+                            Id = new Guid("197f38bf-4d94-44ec-bf11-37040e6c6880"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 406, DateTimeKind.Local).AddTicks(3772),
                             IsDeleted = false,
                             Name = "Казахстан"
                         },
                         new
                         {
-                            Id = new Guid("f77584e5-6ddc-4a6e-b856-42d240754054"),
-                            Created = new DateTime(2021, 11, 11, 17, 5, 55, 452, DateTimeKind.Local).AddTicks(3266),
+                            Id = new Guid("2b7fad61-2265-4efd-8b3a-86b95b1e51fd"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 406, DateTimeKind.Local).AddTicks(3793),
                             IsDeleted = false,
                             Name = "Украина"
                         });
@@ -181,6 +181,36 @@ namespace DeeFlat.Dictionaries.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Skills");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ac052f47-2523-4c0c-af5b-670eea49fc62"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 406, DateTimeKind.Local).AddTicks(5013),
+                            IsDeleted = false,
+                            Name = "C#"
+                        },
+                        new
+                        {
+                            Id = new Guid("f5f8ec83-2f5b-4369-98af-73e6ed41916a"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 406, DateTimeKind.Local).AddTicks(5261),
+                            IsDeleted = false,
+                            Name = "JavaScript"
+                        },
+                        new
+                        {
+                            Id = new Guid("3114b7aa-dd6d-43cc-8cd5-dde16413bf6d"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 406, DateTimeKind.Local).AddTicks(5269),
+                            IsDeleted = false,
+                            Name = "HTML"
+                        },
+                        new
+                        {
+                            Id = new Guid("d514a61d-11b4-4082-a099-7c0fe13fff28"),
+                            Created = new DateTime(2021, 11, 19, 14, 27, 44, 406, DateTimeKind.Local).AddTicks(5271),
+                            IsDeleted = false,
+                            Name = ".NET"
+                        });
                 });
 
             modelBuilder.Entity("DeeFlat.Dictionaries.Core.Domain.City", b =>

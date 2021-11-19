@@ -13,6 +13,9 @@ namespace DeeFlat.Dictionaries.Core.Domain
         {
             Name = name;
         }
+        public Skill()
+        {
+        }
 
         public string Name { get; set; }
     }

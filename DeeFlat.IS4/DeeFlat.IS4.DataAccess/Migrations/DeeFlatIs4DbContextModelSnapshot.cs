@@ -71,12 +71,15 @@ namespace DeeFlat.IS4.DataAccess.Migrations
                     b.Property<string>("City")
                         .HasColumnType("text");
 
+                    b.Property<Guid>("CityId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CountryId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("CountryName")
                         .HasColumnType("text");

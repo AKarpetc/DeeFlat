@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DeeFlat.IS4.DataAccess.Migrations
 {
-    public partial class initDB : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,6 +14,7 @@ namespace DeeFlat.IS4.DataAccess.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
+                    Type = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
@@ -32,7 +33,7 @@ namespace DeeFlat.IS4.DataAccess.Migrations
                     Surname = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     BornDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     AboutMe = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
-                    CountryId = table.Column<int>(type: "integer", nullable: false),
+                    CountryId = table.Column<Guid>(type: "uuid", nullable: false),
                     CountryName = table.Column<string>(type: "text", nullable: true),
                     City = table.Column<string>(type: "text", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -169,7 +170,9 @@ namespace DeeFlat.IS4.DataAccess.Migrations
                     ApplicationUserId = table.Column<string>(type: "text", nullable: true),
                     ApplicationUserId1 = table.Column<Guid>(type: "uuid", nullable: true),
                     SkilId = table.Column<Guid>(type: "uuid", nullable: false),
-                    SkilName = table.Column<string>(type: "text", nullable: true)
+                    SkilName = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
