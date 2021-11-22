@@ -11,5 +11,12 @@ namespace DeeFlat.Homework.DataAccess.Data
 
         public virtual DbSet<Chat> Chats { get; set; }
         public virtual DbSet<Chat> ChatMessages { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ChatMessage>()
+                .Property(p => p.MessageIndex)
+                .ValueGeneratedOnAdd();
+        }
     }
 }
