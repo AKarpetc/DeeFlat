@@ -1,12 +1,12 @@
 ﻿using DeeFlat.Abstractions.Abstractions;
 using System;
-using System.Collections.Generic;
 
 namespace DeeFlat.Homework.Core.Domain
 {
     public class Chat : BaseEntity
     {
-        public IEnumerable<Guid> ChatParticipants { get; set; }
-        
+        public Guid CourseId { get; set; }
+        public Guid PupilId { get; set; }
+        public Guid AssignedTeacherId { get; set; }
     }
 }
