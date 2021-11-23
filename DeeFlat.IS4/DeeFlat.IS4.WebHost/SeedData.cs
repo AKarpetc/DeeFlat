@@ -112,8 +112,8 @@ namespace DeeFlat.IS4.WebHost
                     else
                     {
 
-                        context.UserSkills.RemoveRange(context.UserSkills.ToList());
-                        userMgr.DeleteAsync(alice).Wait();
+                       // context.UserSkills.RemoveRange(context.UserSkills.ToList());
+                     //   userMgr.DeleteAsync(alice).Wait();
 
                         Log.Debug("alice already exists");
                     }

@@ -53,9 +53,9 @@ const AccountProfileDetails = (props) => {
   }, []);
 
   const handleChange = (event) => {
-    if (event.target.name == "state") {
-        console.log("customlog",event.target);
-        loadCities(event.target.value);
+    if (event.target.name == "countryId") {
+      console.log("customlog", event.target);
+      loadCities(event.target.value);
     }
 
     setValues({
@@ -149,7 +149,7 @@ const AccountProfileDetails = (props) => {
               <TextField
                 fullWidth
                 label="Выберите страну: "
-                name="state"
+                name="countryId"
                 onChange={handleChange}
                 required
                 select
@@ -175,12 +175,12 @@ const AccountProfileDetails = (props) => {
               <TextField
                 fullWidth
                 label="Выберите город: "
-                name="state"
+                name="cityId"
                 onChange={handleChange}
                 required
                 select
                 SelectProps={{ native: true }}
-                value={values.city}
+                value={values.cityId}
                 variant="outlined"
               >
                 {cities.map((option) => (
@@ -206,6 +206,7 @@ const AccountProfileDetails = (props) => {
           <Button
             color="primary"
             variant="contained"
+            onClick={() => {  }}
           >
             Сохранить данные
           </Button>
