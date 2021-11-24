@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DeeFlat.IS4.DataAccess.Migrations
 {
     [DbContext(typeof(DeeFlatIs4DbContext))]
-    [Migration("20211102083105_AddSkills")]
-    partial class AddSkills
+    [Migration("20211119100932_AddCityId")]
+    partial class AddCityId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,6 +42,9 @@ namespace DeeFlat.IS4.DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
@@ -70,12 +73,15 @@ namespace DeeFlat.IS4.DataAccess.Migrations
                     b.Property<string>("City")
                         .HasColumnType("text");
 
+                    b.Property<Guid>("CityId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CountryId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("CountryName")
                         .HasColumnType("text");

@@ -25,7 +25,7 @@ namespace DeeFlat.IS4.Services.Users
         [StringLength(500)]
         public string AboutMe { get; set; }
 
-        public int CountryId { get; set; }
+        public Guid CountryId { get; set; }
 
         public string CountryName { get; set; }
 

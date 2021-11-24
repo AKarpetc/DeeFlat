@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace DeeFlat.IS4.WebHost.Controllers
@@ -42,7 +41,6 @@ namespace DeeFlat.IS4.WebHost.Controllers
             var result = await _mediator.Send(new GetUserQuery(userName));
             return Ok(result);
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Post(AddUserCommand user)

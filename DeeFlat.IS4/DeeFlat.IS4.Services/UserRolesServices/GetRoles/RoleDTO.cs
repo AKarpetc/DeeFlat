@@ -5,18 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeeFlat.Dictionaries.Core.Domain
+namespace DeeFlat.IS4.Services.UserRolesServices.GetRoles
 {
-    public class Skill : BaseEntity
+    public class RoleDTO : BaseDTO
     {
-        public Skill(string name)
-        {
-            Name = name;
-        }
-        public Skill()
-        {
-        }
-
         public string Name { get; set; }
+
+        public string NormalizedName { get; set; }
+
+
+        public string Description { get; set; }
     }
 }

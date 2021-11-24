@@ -1,5 +1,6 @@
 using DeeFlat.Abstractions.Contracts;
 using DeeFlat.Dictionaries.DataAccess.Data;
+using DeeFlat.Dictionaries.Services.Countries.GetCountries;
 using DeeFlat.Dictionaries.Services.Skills.GetSkills;
 using MassTransit;
 using MediatR;
@@ -119,6 +120,8 @@ namespace DeeFlat.Dictionaries.WebHost
             });
 
             services.AddMediatR(typeof(SkillDTO));
+            services.AddMediatR(typeof(CountryDTO));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

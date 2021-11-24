@@ -5,18 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeeFlat.Dictionaries.Core.Domain
+namespace DeeFlat.Dictionaries.Services.Countries.GetCountries
 {
-    public class Skill : BaseEntity
+    public class CountryDTO : BaseDTO
     {
-        public Skill(string name)
-        {
-            Name = name;
-        }
-        public Skill()
-        {
-        }
-
         public string Name { get; set; }
     }
 }

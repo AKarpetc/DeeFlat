@@ -1,0 +1,7 @@
+{
+    "watchFolder": "src",
+    "outputFolder": "src/css",
+    "runOnce": false,
+    "enableJs": true,
+    "mainFile": "App.less"
+}

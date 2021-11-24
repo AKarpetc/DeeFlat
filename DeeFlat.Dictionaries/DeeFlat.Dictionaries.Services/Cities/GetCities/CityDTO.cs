@@ -5,17 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeeFlat.Dictionaries.Core.Domain
+namespace DeeFlat.Dictionaries.Services.Cities.GetCities
 {
-    public class Skill : BaseEntity
+    public class CityDTO : BaseDTO
     {
-        public Skill(string name)
-        {
-            Name = name;
-        }
-        public Skill()
-        {
-        }
+        public Guid CountryId { get; set; }
 
         public string Name { get; set; }
     }

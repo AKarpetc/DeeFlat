@@ -7,16 +7,10 @@ using System.Threading.Tasks;
 
 namespace DeeFlat.Dictionaries.Core.Domain
 {
-    public class Skill : BaseEntity
+    public class Country : BaseEntity
     {
-        public Skill(string name)
-        {
-            Name = name;
-        }
-        public Skill()
-        {
-        }
-
         public string Name { get; set; }
+
+        public virtual ICollection<City> Cities { get; set; } = new List<City>();
     }
 }
