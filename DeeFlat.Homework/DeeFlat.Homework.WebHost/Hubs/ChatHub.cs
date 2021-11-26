@@ -3,6 +3,7 @@ using DeeFlat.Homework.Core.Domain;
 using DeeFlat.Homework.Services.Producers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Configuration;
 using SignalRSwaggerGen.Attributes;
 using SignalRSwaggerGen.Enums;
 using System;
@@ -33,8 +34,8 @@ namespace DeeFlat.Homework.WebHost.Hubs
 
         public async Task<IEnumerable<ChatMessage>> JoinChatAsPupil(string userId, string courseId)
         {
-            if (Guid.TryParse(userId, out Guid parsedUserId)
-                || Guid.TryParse(courseId, out Guid parsedCourseId))
+            if (!Guid.TryParse(userId, out Guid parsedUserId)
+                || !Guid.TryParse(courseId, out Guid parsedCourseId))
             {
                 throw new ArgumentNullException("UserId and CourseId are null");
             }
@@ -59,8 +60,8 @@ namespace DeeFlat.Homework.WebHost.Hubs
 
         public async Task SendMessageAsync(string fromUserId, string courseId, string content)
         {
-            if (Guid.TryParse(fromUserId, out Guid parsedUserId)
-                || Guid.TryParse(courseId, out Guid parsedCourseId))
+            if (!Guid.TryParse(fromUserId, out Guid parsedUserId)
+                || !Guid.TryParse(courseId, out Guid parsedCourseId))
             {
                 throw new ArgumentNullException("fromUserId and courseId are null");
             }
@@ -76,10 +77,11 @@ namespace DeeFlat.Homework.WebHost.Hubs
             await Clients.Group(chat.Id.ToString()).SendAsync("ReceiveChatMessage", chatMessage);
         }
 
+        [Authorize(Roles = "Teacher")]
         public async Task SendMessageAsTeacherAsync(string fromUserId, string courseId, string content)
         {
-            if (Guid.TryParse(fromUserId, out Guid parsedUserId)
-                || Guid.TryParse(courseId, out Guid parsedCourseId))
+            if (!Guid.TryParse(fromUserId, out Guid parsedUserId)
+                || !Guid.TryParse(courseId, out Guid parsedCourseId))
             {
                 throw new ArgumentNullException("fromUserId and courseId are null");
             }
@@ -94,11 +96,12 @@ namespace DeeFlat.Homework.WebHost.Hubs
             await Clients.Group(chat.Id.ToString()).SendAsync("ReceiveChatMessage", chatMessage);
         }
 
+        [Authorize(Roles = "Teacher")]
         public async Task AcceptHomework(string pupilUserId, string teacherId, string courseId)
         {
-            if (Guid.TryParse(pupilUserId, out Guid parsedPupilId)
-                || Guid.TryParse(courseId, out Guid parsedCourseId)
-                || Guid.TryParse(teacherId, out Guid parsedTeacherId))
+            if (!Guid.TryParse(pupilUserId, out Guid parsedPupilId)
+                || !Guid.TryParse(courseId, out Guid parsedCourseId)
+                || !Guid.TryParse(teacherId, out Guid parsedTeacherId))
             {
                 throw new ArgumentNullException("fromUserId and courseId are null");
             }
