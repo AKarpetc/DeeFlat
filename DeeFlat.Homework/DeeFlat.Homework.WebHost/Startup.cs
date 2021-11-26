@@ -61,13 +61,11 @@ namespace DeeFlat.Homework.WebHost
             services.AddDbContext<HomeworkContext>(option =>
             {
                 option.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionString"));
-                option.UseLazyLoadingProxies();
             }, ServiceLifetime.Singleton);
             services.AddSingleton(typeof(IRepository<>), typeof(EfRepository<>));
 
             var httpClientHandler = new HttpClientHandler();
             httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, error) => true;
-
 
             services.AddAuthentication(options =>
             {
