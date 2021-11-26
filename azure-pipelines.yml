@@ -38,3 +38,4 @@ steps:
     testSelector: 'testAssemblies'
     testAssemblyVer2: '**/DeeFlat.Course.UnitTests.dll'    
     searchFolder: '$(System.DefaultWorkingDirectory)'
+    diagnosticsEnabled: True
