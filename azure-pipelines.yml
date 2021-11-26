@@ -36,6 +36,8 @@ steps:
 - task: VSTest@2
   inputs:
     testSelector: 'testAssemblies'
-    testAssemblyVer2: '**/DeeFlat.Course.UnitTests.dll'    
+    testAssemblyVer2: '**/DeeFlat.Course.UnitTests.dll
+                      !**\bin\**\ref\**'   
+     
     searchFolder: '$(System.DefaultWorkingDirectory)'
     diagnosticsEnabled: True
