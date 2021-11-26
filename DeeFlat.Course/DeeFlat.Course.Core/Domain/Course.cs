@@ -9,9 +9,7 @@ namespace DeeFlat.Course.Core.Domain
 
         public string Description { get; set; }
 
-        public CourseStatuses StatusId { get; set; }
-
-        public virtual CourseStatus Status { get; set; }
+        public CourseStatuses Status { get; set; }
 
     }
 }

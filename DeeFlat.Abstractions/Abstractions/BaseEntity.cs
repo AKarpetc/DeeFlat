@@ -11,9 +11,10 @@ namespace DeeFlat.Abstractions.Abstractions
         public BaseEntity()
         {
             Created = DateTime.Now;
+            Id = Guid.NewGuid();
         }
 
-        public Guid Id { get; set; }
+        public virtual Guid Id { get; set; }
 
         public bool IsDeleted { get; set; }
 

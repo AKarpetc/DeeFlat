@@ -97,7 +97,7 @@ services:
         - "25672:25672"
         - "15671:15671"
         - "15672:15672"
-     #dictionary-email
+    #dictionary-email
     deeflat-email:
         container_name: deeflat-email
         image: "deeflat-email"
@@ -106,9 +106,47 @@ services:
             - 9293:5001
         environment:
             - ASPNETCORE_URLS=https://+:5001;http://+:80
+    #Dee Flat Group DB
+    dee-flat-group-db:
+        container_name: dee-flat-group-db
+        restart: unless-stopped
+        environment:
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=adminadmin
+            - POSTGRES_DB=deeflatgroupdb
+        image: "postgres"
+        hostname: dee-flat-group-db
+        ports:
+            - "5434:5432"
+        volumes:
+            - dee-flat-group-db-data:/var/lib/postgresql/data/
+    #Dee Flat Courses DB
+    dee-flat-course-db:
+        image: mongo
+        restart: always
+        ports:
+            - 27017:27017
+        environment:
+         MONGO_INITDB_ROOT_USERNAME: root
+         MONGO_INITDB_ROOT_PASSWORD: example
+        volumes:
+            - dee-flat-course-db:/var/lib/postgresql/data/
 
+    mongo-express:
+        image: mongo-express
+        restart: always
+        depends_on:
+        - "dee-flat-course-db"
+        ports:
+        - 8082:8081
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: root
+            ME_CONFIG_MONGODB_ADMINPASSWORD: example
+            ME_CONFIG_MONGODB_URL: mongodb://root:example@dee-flat-course-db:27017/
 volumes:
     pgadmin:
     database-data:
     database-is4-data:
     deeflat-dictionary-data:
+    dee-flat-group-db-data:
+    dee-flat-course-db:

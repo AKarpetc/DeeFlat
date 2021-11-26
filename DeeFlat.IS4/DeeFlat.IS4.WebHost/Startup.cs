@@ -20,6 +20,7 @@ using MediatR;
 using DeeFlat.IS4.Services.Users.GetUsers;
 using MassTransit;
 using DeeFlat.IS4.Services.Consumers;
+using DeeFlat.Abstractions.Exceptions;
 
 namespace DeeFlat.IS4.WebHost
 {
@@ -74,13 +75,13 @@ namespace DeeFlat.IS4.WebHost
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
-                
+
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
             })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiScopes(Config.ApiScopes)
-                .AddInMemoryApiResources(Config.ApiResources)
+                // .AddInMemoryApiResources(Config.ApiResources)
 
                 .AddInMemoryClients(Config.Clients)
                 .AddAspNetIdentity<ApplicationUser>();
@@ -159,7 +160,9 @@ namespace DeeFlat.IS4.WebHost
             app.UseRouting();
             app.UseIdentityServer();
             app.UseAuthorization();
-         
+
+            app.UseExceptionHandlerMiddleware();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();

@@ -38,7 +38,7 @@ namespace DeeFlat.IS4.WebHost
             try
             {
                 var seed = args.Contains("/seed");
-                // seed = true;
+               // seed = true;
                 if (seed)
                 {
                     args = args.Except(new[] { "/seed" }).ToArray();
@@ -53,7 +53,7 @@ namespace DeeFlat.IS4.WebHost
                     var connectionString = config.GetConnectionString("DefaultConnectionStrings");
                     SeedData.EnsureSeedData(connectionString);
                     Log.Information("Done seeding database.");
-                    //return 0;
+                    return 0;
                 }
 
                 Log.Information("Starting host...");

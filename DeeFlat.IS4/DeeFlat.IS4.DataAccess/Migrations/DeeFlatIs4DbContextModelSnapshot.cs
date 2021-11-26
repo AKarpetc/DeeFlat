@@ -40,6 +40,9 @@ namespace DeeFlat.IS4.DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
@@ -68,12 +71,15 @@ namespace DeeFlat.IS4.DataAccess.Migrations
                     b.Property<string>("City")
                         .HasColumnType("text");
 
+                    b.Property<Guid>("CityId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CountryId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("CountryName")
                         .HasColumnType("text");
