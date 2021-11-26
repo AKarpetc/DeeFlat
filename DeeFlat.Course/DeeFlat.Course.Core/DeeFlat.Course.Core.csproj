@@ -13,4 +13,8 @@
     <ProjectReference Include="..\..\DeeFlat.Abstractions\DeeFlat.Abstractions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstractions\" />
+  </ItemGroup>
+
 </Project>

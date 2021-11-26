@@ -19,8 +19,8 @@ namespace DeeFlat.Course.DataAccess.Repositories
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
-            var name = nameof(T);
-           
+            var name = typeof(T).Name;
+
             _collection = database.GetCollection<T>(name);
         }
 
@@ -31,14 +31,14 @@ namespace DeeFlat.Course.DataAccess.Repositories
             return model.Id;
         }
 
-        public Task DeleteAsync(T model)
+        public async Task DeleteAsync(T model)
         {
-            throw new NotImplementedException();
+            await _collection.DeleteOneAsync(x => x.Id == model.Id);
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            await _collection.DeleteOneAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
@@ -46,14 +46,14 @@ namespace DeeFlat.Course.DataAccess.Repositories
             return await _collection.Find(x => true).ToListAsync();
         }
 
-        public Task<T> GetByIdAsync(Guid id)
+        public async Task<T> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return (await _collection.FindAsync(x => x.Id == id)).FirstOrDefault();
         }
 
-        public Task<T> GetFirstWhereAsync(Expression<Func<T, bool>> predicate)
+        public async Task<T> GetFirstWhereAsync(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await _collection.Find(predicate).FirstOrDefaultAsync();
         }
 
         public Task<IEnumerable<T>> GetRangeByIdsAsync(List<Guid> ids)
@@ -61,9 +61,9 @@ namespace DeeFlat.Course.DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<T>> GetWhereAsync(Expression<Func<T, bool>> predicate)
+        public async Task<IEnumerable<T>> GetWhereAsync(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await _collection.Find(predicate).ToListAsync();
         }
 
         public Task SaveAsync()
@@ -71,9 +71,9 @@ namespace DeeFlat.Course.DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(T model)
+        public async Task UpdateAsync(T model)
         {
-            throw new NotImplementedException();
+            await _collection.FindOneAndReplaceAsync(x => x.Id == model.Id, model);
         }
     }
 }

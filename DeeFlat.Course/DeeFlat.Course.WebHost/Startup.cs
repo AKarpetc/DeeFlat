@@ -1,7 +1,10 @@
 using DeeFlat.Abstractions.Repositories;
+using DeeFlat.Course.Core.Domain;
 using DeeFlat.Course.DataAccess.DBSettings;
 using DeeFlat.Course.DataAccess.Repositories;
+using DeeFlat.Course.Services.Courses.AddCourse;
 using MassTransit;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,7 +40,7 @@ namespace DeeFlat.Course.WebHost
                 Configuration.GetSection(nameof(DeeFlatCourseDBSettings)));
 
             services.AddSingleton<IDeeFlatCourseDBSettings>(sp =>
-                sp.GetRequiredService<IOptions<IDeeFlatCourseDBSettings>>().Value);
+                sp.GetRequiredService<IOptions<DeeFlatCourseDBSettings>>().Value);
 
             services.AddScoped(typeof(IRepository<>), typeof(MongoDBRepository<>));
 
@@ -108,9 +111,11 @@ namespace DeeFlat.Course.WebHost
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DeeFlat.Dictionaries.WebHost", Version = "v1" });
             });
 
+            services.AddMediatR(typeof(AddCourseCommand));
+
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IRepository<CourseStatus> statusRepostory)
         {
             if (env.IsDevelopment())
             {
@@ -130,6 +135,7 @@ namespace DeeFlat.Course.WebHost
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

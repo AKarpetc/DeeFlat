@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DeeFlat.Course.DataAccess\DeeFlat.Course.DataAccess.csproj" />
+    <ProjectReference Include="..\DeeFlat.Course.Services\DeeFlat.Course.Services.csproj" />
   </ItemGroup>
 
 </Project>
