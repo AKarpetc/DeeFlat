@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace DeeFlat.Homework.WebHost.Hubs
 {
-    [Authorize]
     [SignalRHub("/chat", AutoDiscover.MethodsAndArgs)]
     public class ChatHub : Hub
     {
@@ -32,7 +31,9 @@ namespace DeeFlat.Homework.WebHost.Hubs
             _homeworkProducer = homeworkProducer;
         }
 
-        public async Task<IEnumerable<ChatMessage>> JoinChatAsPupil(string userId, string courseId)
+        [Authorize]
+        [HubMethodName("JoinChatAsPupil")]
+        public async Task<IEnumerable<ChatMessage>> JoinChatAsPupilAsync(string userId, string courseId)
         {
             if (!Guid.TryParse(userId, out Guid parsedUserId)
                 || !Guid.TryParse(courseId, out Guid parsedCourseId))
@@ -57,7 +58,8 @@ namespace DeeFlat.Homework.WebHost.Hubs
             return messages;
         }
 
-
+        [Authorize]
+        [HubMethodName("SendMessage")]
         public async Task SendMessageAsync(string fromUserId, string courseId, string content)
         {
             if (!Guid.TryParse(fromUserId, out Guid parsedUserId)
@@ -78,6 +80,7 @@ namespace DeeFlat.Homework.WebHost.Hubs
         }
 
         [Authorize(Roles = "Teacher")]
+        [HubMethodName("SendMessageAsTeacher")]
         public async Task SendMessageAsTeacherAsync(string fromUserId, string courseId, string content)
         {
             if (!Guid.TryParse(fromUserId, out Guid parsedUserId)
@@ -97,7 +100,8 @@ namespace DeeFlat.Homework.WebHost.Hubs
         }
 
         [Authorize(Roles = "Teacher")]
-        public async Task AcceptHomework(string pupilUserId, string teacherId, string courseId)
+        [HubMethodName("AcceptHomework")]
+        public async Task AcceptHomeworkAsync(string pupilUserId, string teacherId, string courseId)
         {
             if (!Guid.TryParse(pupilUserId, out Guid parsedPupilId)
                 || !Guid.TryParse(courseId, out Guid parsedCourseId)
