@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace DeeFlat.Homework.WebHost.Hubs
 {
-    //[Authorize]
+    [Authorize]
     [SignalRHub("/chat", AutoDiscover.MethodsAndArgs)]
     public class ChatHub : Hub
     {
