@@ -129,6 +129,8 @@ services:
         environment:
          MONGO_INITDB_ROOT_USERNAME: root
          MONGO_INITDB_ROOT_PASSWORD: example
+        volumes:
+            - dee-flat-course-db:/var/lib/postgresql/data/
 
     mongo-express:
         image: mongo-express
@@ -145,3 +147,4 @@ volumes:
     database-is4-data:
     deeflat-dictionary-data:
     dee-flat-group-db-data:
+    dee-flat-course-db:

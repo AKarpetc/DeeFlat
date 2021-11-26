@@ -3,7 +3,7 @@ using DeeFlat.Course.Core.Domain.Enums;
 
 namespace DeeFlat.Course.Core.Domain
 {
-    public class Course : BaseEntity
+    public class Course : BaseMDB
     {
         public string Name { get; set; }
 

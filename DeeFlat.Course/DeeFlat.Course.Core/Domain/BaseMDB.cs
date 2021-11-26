@@ -1,4 +1,6 @@
 ﻿using DeeFlat.Abstractions.Abstractions;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,8 @@ namespace DeeFlat.Course.Core.Domain
 {
     public class BaseMDB : BaseEntity
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public override Guid Id { get; set; }
     }
 }
