@@ -67,8 +67,8 @@ namespace DeeFlat.Homework.WebHost
             {
                 option.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionString"));
                 option.UseLazyLoadingProxies();
-            });
-            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+            }, ServiceLifetime.Singleton);
+            services.AddSingleton(typeof(IRepository<>), typeof(EfRepository<>));
 
             var httpClientHandler = new HttpClientHandler();
             httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, error) => true;
