@@ -131,7 +131,6 @@ namespace DeeFlat.Homework.WebHost
                         .WithOrigins("http://localhost:3000");
                 });
             });
-            services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
             services.AddControllers();
             services.AddSignalR();
             services.AddSwaggerGen(c =>
