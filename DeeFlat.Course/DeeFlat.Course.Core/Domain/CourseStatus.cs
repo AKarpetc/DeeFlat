@@ -2,7 +2,7 @@
 
 namespace DeeFlat.Course.Core.Domain
 {
-    public class CourseStatus : BaseMDB
+    public class CourseStatus : BaseEntity
     {
         public string Name { get; set; }
     }

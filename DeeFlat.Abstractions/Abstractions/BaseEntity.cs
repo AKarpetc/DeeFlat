@@ -16,8 +16,8 @@ namespace DeeFlat.Abstractions.Abstractions
 
         public virtual Guid Id { get; set; }
 
-        public virtual bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
 
-        public virtual DateTime Created { get; set; }
+        public DateTime Created { get; set; }
     }
 }
