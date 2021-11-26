@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DeeFlat.Homework.DataAccess\DeeFlat.Homework.DataAccess.csproj" />
+    <ProjectReference Include="..\DeeFlat.Homework.Services\DeeFlat.Homework.Services.csproj" />
   </ItemGroup>
 
 </Project>

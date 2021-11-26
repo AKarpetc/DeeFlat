@@ -1,6 +1,7 @@
 using DeeFlat.Abstractions.Repositories;
 using DeeFlat.Homework.DataAccess.Data;
 using DeeFlat.Homework.DataAccess.Repositories;
+using DeeFlat.Homework.Services.Producers;
 using DeeFlat.Homework.WebHost.Hubs;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -59,6 +60,8 @@ namespace DeeFlat.Homework.WebHost
                     cfg.ConfigureEndpoints(context);
                 });
             });
+            services.AddMassTransitHostedService();
+            services.AddSingleton<IHomeworkProducer, HomeworkProducer>();
 
             services.AddDbContext<HomeworkContext>(option =>
             {
