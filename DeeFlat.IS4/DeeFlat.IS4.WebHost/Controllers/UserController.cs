@@ -56,5 +56,12 @@ namespace DeeFlat.IS4.WebHost.Controllers
             return Ok(result);
         }
 
+        [HttpDelete]
+        public async Task Delete(Guid id)
+        {
+
+            throw new Exception("Проверка внутреннего слоя");
+        }
+
     }
 }
