@@ -3,7 +3,7 @@ using System;
 
 namespace DeeFlat.Course.Core.Domain
 {
-    public class File : BaseEntity
+    public class File : BaseMDB
     {
         public byte[] Attachment { get; set; }
 

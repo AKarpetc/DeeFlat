@@ -120,9 +120,31 @@ services:
             - "5434:5432"
         volumes:
             - dee-flat-group-db-data:/var/lib/postgresql/data/
+    #Dee Flat Courses DB
+    dee-flat-course-db:
+        image: mongo
+        restart: always
+        ports:
+            - 27017:27017
+        environment:
+         MONGO_INITDB_ROOT_USERNAME: root
+         MONGO_INITDB_ROOT_PASSWORD: example
+        volumes:
+            - dee-flat-course-db:/var/lib/postgresql/data/
+
+    mongo-express:
+        image: mongo-express
+        restart: always
+        ports:
+        - 8082:8081
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: root
+            ME_CONFIG_MONGODB_ADMINPASSWORD: example
+            ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
 volumes:
     pgadmin:
     database-data:
     database-is4-data:
     deeflat-dictionary-data:
     dee-flat-group-db-data:
+    dee-flat-course-db:

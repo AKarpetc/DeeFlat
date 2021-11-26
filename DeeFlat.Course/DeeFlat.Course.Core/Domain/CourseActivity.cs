@@ -3,7 +3,7 @@ using System;
 
 namespace DeeFlat.Course.Core.Domain
 {
-    public class CourseActivity : BaseEntity
+    public class CourseActivity : BaseMDB
     {
         public string Name { get; set; }
 

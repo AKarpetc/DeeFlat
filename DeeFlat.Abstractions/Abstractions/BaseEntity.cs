@@ -14,10 +14,10 @@ namespace DeeFlat.Abstractions.Abstractions
             Id = Guid.NewGuid();
         }
 
-        public Guid Id { get; set; }
+        public virtual Guid Id { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public virtual bool IsDeleted { get; set; }
 
-        public DateTime Created { get; set; }
+        public virtual DateTime Created { get; set; }
     }
 }
