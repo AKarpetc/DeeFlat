@@ -1,6 +1,7 @@
 ﻿using DeeFlat.Groups.Services.Groups.AddGroupCommand;
 using DeeFlat.Groups.Services.Groups.ChangeGroupStatusCommand;
 using DeeFlat.Groups.Services.Groups.EditGroupCommand;
+using DeeFlat.Groups.Services.Groups.GetGroupsQuery;
 using DeeFlat.Groups.Services.Groups.RemoveGroupCommand;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,13 @@ namespace DeeFlat.Groups.WebHost.Controllers
         public GroupController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get(GetGroupsQuery query)
+        {
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpPost]
